@@ -22,7 +22,7 @@ FLUJO:
 """
 
 # --- IMPORTACIONES ---
-from flask import Flask, request, jsonify  # Framework web ligero para Python
+from flask import Flask, request, jsonify, render_template  # Framework web ligero para Python
 from flask_cors import CORS               # Permite peticiones desde el frontend
 import joblib                             # Cargar modelos guardados con joblib
 import numpy as np                        # Operaciones numéricas
@@ -34,6 +34,9 @@ import json                               # Leer el archivo de métricas
 
 # Flask(__name__) crea la aplicación. __name__ le dice a Flask dónde buscar recursos
 app = Flask(__name__)
+@app.route("/")
+def home():
+    return render_template("index.html")
 
 # CORS (Cross-Origin Resource Sharing) → permite que el HTML pueda llamar a esta API
 # Sin CORS, el navegador bloquea peticiones de un dominio a otro por seguridad

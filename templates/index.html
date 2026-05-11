@@ -2396,7 +2396,7 @@ function renderFlowerGrid() {
     return `
       <div class="flower-card-mini ${hc}" onclick="openFlowerModal(${i})" title="Fila #${row._row} · clic para detalle">
         ${hit!==null?`<div class="fmini-hit">${hit?'✅':'❌'}</div>`:''}
-        <img src="img/${nnC}.jpg" alt="${nnC}"
+        <img src="/static/img/${nnC}.jpg" alt="${nnC}"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="fmini-placeholder" style="display:none">${emojis[nnC]||'🌸'}</div>
         <div class="fmini-body">
@@ -2571,7 +2571,7 @@ function openFlowerModal(i) {
     </div>`).join('');
 
   document.getElementById('flower-modal-content').innerHTML = `
-    <img class="modal-flower-img" src="img/${nnClass}.jpg" alt="${nnClass}"
+    <img class="modal-flower-img" src="/static/img/${nnClass}.jpg" alt="${nnClass}"
       onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=font-size:72px;text-align:center;margin-bottom:16px>${emojis[nnClass]||'🌸'}</div>')">
     <div class="modal-species" style="color:var(--${nnClass})">${nnClass}</div>
     <div class="modal-meta">
