@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +9,11 @@
   <!-- Chart.js: librería para gráficas interactivas -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <!-- Google Fonts: tipografía científica elegante -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet">
 
   <style>
     /* =====================================================================
@@ -18,28 +22,45 @@
        Cambiar aquí afecta todo el sitio.
     ====================================================================== */
     :root {
-      --bg:          #0a0c0e;        /* Negro carbón profundo */
-      --surface:     #111416;        /* Tarjetas — grafito oscuro */
-      --surface2:    #191c1f;        /* Tarjetas internas */
-      --border:      #252b30;        /* Bordes sutiles grafito */
-      --accent:      #10b981;        /* Esmeralda — color principal */
-      --accent2:     #d97706;        /* Ámbar dorado — redes neuronales */
-      --setosa:      #10b981;        /* Verde esmeralda para Setosa */
-      --versicolor:  #f59e0b;        /* Ámbar para Versicolor */
-      --virginica:   #e879f9;        /* Fucsia para Virginica */
-      --text:        #f1f0ee;        /* Blanco cálido */
-      --text-muted:  #6b7280;        /* Gris medio */
-      --font-title:  'Playfair Display', serif;
-      --font-body:   'DM Sans', sans-serif;
-      --font-mono:   'DM Mono', monospace;
-      --radius:      12px;
-      --shadow:      0 4px 32px rgba(0,0,0,0.7);
+      --bg: #0a0c0e;
+      /* Negro carbón profundo */
+      --surface: #111416;
+      /* Tarjetas — grafito oscuro */
+      --surface2: #191c1f;
+      /* Tarjetas internas */
+      --border: #252b30;
+      /* Bordes sutiles grafito */
+      --accent: #10b981;
+      /* Esmeralda — color principal */
+      --accent2: #d97706;
+      /* Ámbar dorado — redes neuronales */
+      --setosa: #10b981;
+      /* Verde esmeralda para Setosa */
+      --versicolor: #f59e0b;
+      /* Ámbar para Versicolor */
+      --virginica: #e879f9;
+      /* Fucsia para Virginica */
+      --text: #f1f0ee;
+      /* Blanco cálido */
+      --text-muted: #6b7280;
+      /* Gris medio */
+      --font-title: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'DM Mono', monospace;
+      --radius: 12px;
+      --shadow: 0 4px 32px rgba(0, 0, 0, 0.7);
     }
 
     /* =====================================================================
        RESET & BASE
     ====================================================================== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       background: var(--bg);
@@ -66,7 +87,8 @@
     header::before {
       content: '';
       display: block;
-      width: 80px; height: 3px;
+      width: 80px;
+      height: 3px;
       background: linear-gradient(90deg, var(--accent), var(--accent2));
       margin: 0 auto 28px;
       border-radius: 2px;
@@ -143,8 +165,25 @@
     }
 
     /* Línea de color en el borde superior de la tarjeta */
-    .card.lr-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent); }
-    .card.nn-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--accent2); }
+    .card.lr-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .card.nn-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--accent2);
+    }
 
     .card-label {
       font-family: var(--font-mono);
@@ -178,10 +217,13 @@
     }
 
     .section-number {
-      width: 36px; height: 36px;
+      width: 36px;
+      height: 36px;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: var(--font-mono);
       font-weight: 500;
       font-size: 14px;
@@ -218,7 +260,8 @@
       color: var(--text-muted);
     }
 
-    input[type="number"], textarea {
+    input[type="number"],
+    textarea {
       background: var(--surface2);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -231,7 +274,8 @@
       outline: none;
     }
 
-    input[type="number"]:focus, textarea:focus {
+    input[type="number"]:focus,
+    textarea:focus {
       border-color: var(--accent);
       box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
     }
@@ -266,8 +310,14 @@
       box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
     }
 
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4); }
-    .btn-primary:active { transform: translateY(0); }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
 
     .btn-secondary {
       background: var(--surface2);
@@ -275,7 +325,10 @@
       color: var(--text);
     }
 
-    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
 
     .btn-purple {
       background: linear-gradient(135deg, var(--accent2), #b45309);
@@ -283,9 +336,16 @@
       box-shadow: 0 4px 16px rgba(217, 119, 6, 0.3);
     }
 
-    .btn-purple:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(217, 119, 6, 0.4); }
+    .btn-purple:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(217, 119, 6, 0.4);
+    }
 
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
 
     /* =====================================================================
        RESULTADO DE PREDICCIÓN — Tarjetas de resultado
@@ -329,13 +389,32 @@
       text-transform: capitalize;
     }
 
-    .species-badge.setosa     { background: rgba(52,211,153,0.15); color: var(--setosa);     border: 1px solid rgba(52,211,153,0.3); }
-    .species-badge.versicolor { background: rgba(251,146,60,0.15);  color: var(--versicolor); border: 1px solid rgba(251,146,60,0.3); }
-    .species-badge.virginica  { background: rgba(244,114,182,0.15); color: var(--virginica);  border: 1px solid rgba(244,114,182,0.3); }
+    .species-badge.setosa {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--setosa);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+    }
+
+    .species-badge.versicolor {
+      background: rgba(251, 146, 60, 0.15);
+      color: var(--versicolor);
+      border: 1px solid rgba(251, 146, 60, 0.3);
+    }
+
+    .species-badge.virginica {
+      background: rgba(244, 114, 182, 0.15);
+      color: var(--virginica);
+      border: 1px solid rgba(244, 114, 182, 0.3);
+    }
 
     /* Barras de probabilidad */
-    .prob-bars { margin-top: 16px; }
-    .prob-row { margin-bottom: 12px; }
+    .prob-bars {
+      margin-top: 16px;
+    }
+
+    .prob-row {
+      margin-bottom: 12px;
+    }
 
     .prob-label-row {
       display: flex;
@@ -359,9 +438,17 @@
       transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .prob-bar-fill.setosa     { background: var(--setosa); }
-    .prob-bar-fill.versicolor { background: var(--versicolor); }
-    .prob-bar-fill.virginica  { background: var(--virginica); }
+    .prob-bar-fill.setosa {
+      background: var(--setosa);
+    }
+
+    .prob-bar-fill.versicolor {
+      background: var(--versicolor);
+    }
+
+    .prob-bar-fill.virginica {
+      background: var(--virginica);
+    }
 
     /* Imagen de la flor predicha */
     .flower-image-container {
@@ -375,7 +462,8 @@
     /* Sin altura fija → la imagen se muestra completa con su proporción natural */
     .flower-image-container img {
       width: 100%;
-      height: auto;          /* altura automática = imagen completa, sin recorte */
+      height: auto;
+      /* altura automática = imagen completa, sin recorte */
       display: block;
       border-radius: 8px;
     }
@@ -392,7 +480,9 @@
       font-size: 13px;
     }
 
-    .flower-emoji { font-size: 48px; }
+    .flower-emoji {
+      font-size: 48px;
+    }
 
     /* =====================================================================
        PREDICCIÓN POR LOTES
@@ -471,8 +561,15 @@
     }
 
     @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-12px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(-12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .metrics-grid {
@@ -498,8 +595,13 @@
       margin-bottom: 8px;
     }
 
-    .metric-stat .value.lr-color { color: var(--accent); }
-    .metric-stat .value.nn-color { color: var(--accent2); }
+    .metric-stat .value.lr-color {
+      color: var(--accent);
+    }
+
+    .metric-stat .value.nn-color {
+      color: var(--accent2);
+    }
 
     .metric-stat .label {
       font-family: var(--font-mono);
@@ -560,13 +662,30 @@
       cursor: default;
     }
 
-    .confusion-matrix td:hover { transform: scale(1.08); }
+    .confusion-matrix td:hover {
+      transform: scale(1.08);
+    }
 
     /* Celda diagonal (aciertos) vs fuera de diagonal (errores) */
-    .cm-correct   { background: rgba(52,211,153,0.2); color: var(--setosa); }
-    .cm-error-low { background: rgba(251,146,60,0.1);  color: var(--versicolor); }
-    .cm-error-mid { background: rgba(244,114,182,0.15); color: var(--virginica); }
-    .cm-zero      { background: var(--surface); color: var(--border); }
+    .cm-correct {
+      background: rgba(52, 211, 153, 0.2);
+      color: var(--setosa);
+    }
+
+    .cm-error-low {
+      background: rgba(251, 146, 60, 0.1);
+      color: var(--versicolor);
+    }
+
+    .cm-error-mid {
+      background: rgba(244, 114, 182, 0.15);
+      color: var(--virginica);
+    }
+
+    .cm-zero {
+      background: var(--surface);
+      color: var(--border);
+    }
 
     /* Leyenda de la matriz */
     .cm-legend {
@@ -585,7 +704,8 @@
     }
 
     .cm-legend-dot {
-      width: 10px; height: 10px;
+      width: 10px;
+      height: 10px;
       border-radius: 3px;
     }
 
@@ -606,7 +726,10 @@
       padding: 20px;
     }
 
-    .info-box .icon { font-size: 24px; margin-bottom: 10px; }
+    .info-box .icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
 
     .info-box h4 {
       font-family: var(--font-mono);
@@ -641,13 +764,33 @@
       text-align: center;
     }
 
-    .species-card .sp-emoji { font-size: 40px; margin-bottom: 10px; }
-    .species-card h4 { font-family: var(--font-title); font-size: 1rem; margin-bottom: 6px; }
-    .species-card p  { font-size: 12px; color: var(--text-muted); }
+    .species-card .sp-emoji {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
 
-    .species-card.s0 { border-top: 3px solid var(--setosa); }
-    .species-card.s1 { border-top: 3px solid var(--versicolor); }
-    .species-card.s2 { border-top: 3px solid var(--virginica); }
+    .species-card h4 {
+      font-family: var(--font-title);
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .species-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .species-card.s0 {
+      border-top: 3px solid var(--setosa);
+    }
+
+    .species-card.s1 {
+      border-top: 3px solid var(--versicolor);
+    }
+
+    .species-card.s2 {
+      border-top: 3px solid var(--virginica);
+    }
 
     /* =====================================================================
        ESTADO DE CARGA Y ERRORES
@@ -663,18 +806,23 @@
     }
 
     .spinner {
-      width: 16px; height: 16px;
+      width: 16px;
+      height: 16px;
       border: 2px solid var(--border);
       border-top-color: var(--accent);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
 
-    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
     .error-msg {
-      background: rgba(239,68,68,0.1);
-      border: 1px solid rgba(239,68,68,0.3);
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
       border-radius: 8px;
       padding: 12px 16px;
       color: #f87171;
@@ -684,8 +832,8 @@
     }
 
     .success-msg {
-      background: rgba(52,211,153,0.1);
-      border: 1px solid rgba(52,211,153,0.3);
+      background: rgba(52, 211, 153, 0.1);
+      border: 1px solid rgba(52, 211, 153, 0.3);
       border-radius: 8px;
       padding: 12px 16px;
       color: var(--setosa);
@@ -706,20 +854,44 @@
       font-family: var(--font-mono);
     }
 
-    footer span { color: var(--accent); }
+    footer span {
+      color: var(--accent);
+    }
 
     /* =====================================================================
        UTILIDADES
     ====================================================================== */
-    .flex { display: flex; }
-    .gap-12 { gap: 12px; }
-    .mt-16 { margin-top: 16px; }
-    .hidden { display: none !important; }
-    .divider { height: 1px; background: var(--border); margin: 32px 0; }
+    .flex {
+      display: flex;
+    }
+
+    .gap-12 {
+      gap: 12px;
+    }
+
+    .mt-16 {
+      margin-top: 16px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 32px 0;
+    }
 
     @media (max-width: 640px) {
-      .batch-result-row { grid-template-columns: 30px 1fr; grid-template-rows: auto auto; }
-      .form-grid { grid-template-columns: 1fr 1fr; }
+      .batch-result-row {
+        grid-template-columns: 30px 1fr;
+        grid-template-rows: auto auto;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     /* =====================================================================
@@ -735,112 +907,297 @@
       background: var(--surface2);
       position: relative;
     }
-    .upload-zone:hover, .upload-zone.dragover {
+
+    .upload-zone:hover,
+    .upload-zone.dragover {
       border-color: var(--accent);
-      background: rgba(16,185,129,0.06);
+      background: rgba(16, 185, 129, 0.06);
     }
+
     .upload-zone input[type="file"] {
-      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
     }
-    .upload-icon { font-size: 40px; margin-bottom: 12px; }
+
+    .upload-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
     .upload-title {
-      font-family: var(--font-title); font-size: 1.1rem; font-weight: 700;
-      margin-bottom: 6px; color: var(--text);
+      font-family: var(--font-title);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
     }
-    .upload-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
-    .upload-hint { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+
+    .upload-sub {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .upload-hint {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
 
     /* Archivo cargado — estado success */
     .upload-zone.loaded {
       border-color: var(--accent);
       border-style: solid;
-      background: rgba(16,185,129,0.08);
+      background: rgba(16, 185, 129, 0.08);
     }
+
     .file-info {
-      display: flex; align-items: center; gap: 12px;
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 8px; padding: 12px 16px; margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-top: 12px;
     }
-    .file-icon { font-size: 22px; }
-    .file-name { font-family: var(--font-mono); font-size: 13px; color: var(--text); }
-    .file-meta { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); }
+
+    .file-icon {
+      font-size: 22px;
+    }
+
+    .file-name {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .file-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
 
     /* Tabs: Manual / CSV */
-    .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
-    .tab-btn {
-      padding: 10px 24px; cursor: pointer; border: none;
-      background: transparent; color: var(--text-muted);
-      font-family: var(--font-mono); font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
-      border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s;
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
     }
-    .tab-btn:hover  { color: var(--text); }
-    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
+
+    .tab-btn {
+      padding: 10px 24px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
 
     /* Preview table del CSV parseado */
     .csv-preview {
-      margin-top: 20px; overflow-x: auto;
+      margin-top: 20px;
+      overflow-x: auto;
     }
+
     .csv-preview table {
-      width: 100%; border-collapse: collapse;
-      font-family: var(--font-mono); font-size: 12px;
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 12px;
     }
+
     .csv-preview th {
-      text-align: left; padding: 8px 12px;
-      background: var(--surface2); color: var(--accent);
+      text-align: left;
+      padding: 8px 12px;
+      background: var(--surface2);
+      color: var(--accent);
       border-bottom: 1px solid var(--border);
-      text-transform: uppercase; letter-spacing: 1px; font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 10px;
     }
+
     .csv-preview td {
-      padding: 8px 12px; border-bottom: 1px solid var(--border);
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border);
       color: var(--text-muted);
     }
-    .csv-preview tr:last-child td { border-bottom: none; }
-    .csv-preview tr:hover td { background: var(--surface2); }
+
+    .csv-preview tr:last-child td {
+      border-bottom: none;
+    }
+
+    .csv-preview tr:hover td {
+      background: var(--surface2);
+    }
 
     /* Stats del CSV */
     .csv-stats {
-      display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 16px;
     }
+
     .csv-stat {
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 8px; padding: 10px 16px; text-align: center;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 16px;
+      text-align: center;
     }
-    .csv-stat .sv { font-family: var(--font-title); font-size: 1.4rem; font-weight: 700; color: var(--accent); }
-    .csv-stat .sl { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+
+    .csv-stat .sv {
+      font-family: var(--font-title);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .csv-stat .sl {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
     /* Stats grid del CSV */
-    .csv-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px,1fr)); gap: 12px; margin-top: 16px; }
-    .csv-stat-item { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; text-align: center; }
-    .csv-stat-value { display: block; font-family: var(--font-title); font-size: 1.6rem; font-weight: 700; color: var(--accent); }
-    .csv-stat-label { display: block; font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
+    .csv-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .csv-stat-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      text-align: center;
+    }
+
+    .csv-stat-value {
+      display: block;
+      font-family: var(--font-title);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .csv-stat-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
 
     /* Chips de filas del CSV — selector individual */
     .csv-row-selector {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 8px; margin-top: 12px;
-      max-height: 300px; overflow-y: auto;
+      gap: 8px;
+      margin-top: 12px;
+      max-height: 300px;
+      overflow-y: auto;
       padding-right: 4px;
     }
+
     .row-chip {
-      display: flex; align-items: center; gap: 8px;
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 8px; padding: 9px 12px; cursor: pointer;
-      text-align: left; transition: all 0.15s; width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 9px 12px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+      width: 100%;
     }
-    .row-chip:hover { border-color: var(--accent); background: rgba(16,185,129,0.06); }
-    .row-chip.selected { border-color: var(--accent); background: rgba(16,185,129,0.1); box-shadow: 0 0 0 2px rgba(16,185,129,0.2); }
-    .chip-num  { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); min-width: 28px; }
-    .chip-vals { font-family: var(--font-mono); font-size: 11px; color: var(--text); flex: 1; }
+
+    .row-chip:hover {
+      border-color: var(--accent);
+      background: rgba(16, 185, 129, 0.06);
+    }
+
+    .row-chip.selected {
+      border-color: var(--accent);
+      background: rgba(16, 185, 129, 0.1);
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+    }
+
+    .chip-num {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      min-width: 28px;
+    }
+
+    .chip-vals {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text);
+      flex: 1;
+    }
+
     .chip-class {
-      font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px;
-      text-transform: uppercase; padding: 2px 8px; border-radius: 100px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 100px;
     }
-    .chip-class.setosa     { background: rgba(16,185,129,.15); color: var(--setosa); }
-    .chip-class.versicolor { background: rgba(245,158,11,.15); color: var(--versicolor); }
-    .chip-class.virginica  { background: rgba(232,121,249,.15); color: var(--virginica); }
+
+    .chip-class.setosa {
+      background: rgba(16, 185, 129, .15);
+      color: var(--setosa);
+    }
+
+    .chip-class.versicolor {
+      background: rgba(245, 158, 11, .15);
+      color: var(--versicolor);
+    }
+
+    .chip-class.virginica {
+      background: rgba(232, 121, 249, .15);
+      color: var(--virginica);
+    }
 
 
     /* ── Flower gallery grid ─────────────────────────────────── */
@@ -851,6 +1208,7 @@
       margin-top: 16px;
       animation: slideDown .3s ease;
     }
+
     .flower-card-mini {
       background: var(--surface2);
       border: 1px solid var(--border);
@@ -860,269 +1218,450 @@
       transition: all .2s;
       position: relative;
     }
+
     .flower-card-mini:hover {
       transform: translateY(-3px);
       border-color: var(--accent);
-      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .4);
     }
+
     .flower-card-mini img {
-      width: 100%; height: 90px;
-      object-fit: cover; display: block;
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      display: block;
     }
+
     .flower-card-mini .fmini-placeholder {
-      width: 100%; height: 90px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 32px; background: var(--surface);
+      width: 100%;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      background: var(--surface);
     }
+
     .flower-card-mini .fmini-body {
       padding: 8px 10px;
     }
-    .flower-card-mini .fmini-row  { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); margin-bottom: 4px; }
-    .flower-card-mini .fmini-name { font-size: 11px; font-weight: 600; text-transform: capitalize; }
-    .flower-card-mini .fmini-hit  { font-size: 10px; position: absolute; top: 6px; right: 6px;
-                                    background: rgba(0,0,0,.6); border-radius: 100px; padding: 1px 6px; }
-    .flower-card-mini.correct  { border-color: rgba(16,185,129,.4); }
-    .flower-card-mini.wrong    { border-color: rgba(239,68,68,.35); }
+
+    .flower-card-mini .fmini-row {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .flower-card-mini .fmini-name {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .flower-card-mini .fmini-hit {
+      font-size: 10px;
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(0, 0, 0, .6);
+      border-radius: 100px;
+      padding: 1px 6px;
+    }
+
+    .flower-card-mini.correct {
+      border-color: rgba(16, 185, 129, .4);
+    }
+
+    .flower-card-mini.wrong {
+      border-color: rgba(239, 68, 68, .35);
+    }
 
     /* ── Flower modal ────────────────────────────────────────── */
     .flower-modal {
-      position: fixed; inset: 0; z-index: 9999;
-      background: rgba(0,0,0,.75);
-      display: flex; align-items: center; justify-content: center;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, .75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 24px;
       animation: fadeIn .15s ease;
     }
-    .flower-modal.hidden { display: none; }
-    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+    .flower-modal.hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
     .flower-modal-box {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 28px;
-      max-width: 560px; width: 100%;
+      max-width: 560px;
+      width: 100%;
       position: relative;
-      max-height: 90vh; overflow-y: auto;
-      animation: popIn .2s cubic-bezier(.34,1.56,.64,1);
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: popIn .2s cubic-bezier(.34, 1.56, .64, 1);
     }
-    @keyframes popIn { from { transform:scale(.92); opacity:0; } to { transform:scale(1); opacity:1; } }
+
+    @keyframes popIn {
+      from {
+        transform: scale(.92);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
     .modal-close {
-      position: absolute; top: 14px; right: 14px;
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 50%; width: 32px; height: 32px;
-      cursor: pointer; color: var(--text-muted); font-size: 14px;
-      display: flex; align-items: center; justify-content: center;
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: all .15s;
     }
-    .modal-close:hover { border-color: var(--accent); color: var(--accent); }
-    .modal-flower-img  { width: 100%; border-radius: 10px; margin-bottom: 20px; display: block; }
-    .modal-species     { font-family: var(--font-title); font-size: 1.5rem; font-weight: 700; text-transform: capitalize; margin-bottom: 4px; }
-    .modal-meta        { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
-    .modal-prob-row    { margin-bottom: 10px; }
-    .modal-prob-label  { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; margin-bottom: 4px; text-transform: capitalize; }
-    .modal-bar-track   { height: 7px; background: var(--surface2); border-radius: 100px; overflow: hidden; }
-    .modal-bar-fill    { height: 100%; border-radius: 100px; }
+
+    .modal-close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .modal-flower-img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .modal-species {
+      font-family: var(--font-title);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-transform: capitalize;
+      margin-bottom: 4px;
+    }
+
+    .modal-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .modal-prob-row {
+      margin-bottom: 10px;
+    }
+
+    .modal-prob-label {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      margin-bottom: 4px;
+      text-transform: capitalize;
+    }
+
+    .modal-bar-track {
+      height: 7px;
+      background: var(--surface2);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .modal-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+    }
 
     /* ── CSV summary stat cards ──────────────────────────────── */
     .csv-summary-card {
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 16px; text-align: center;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
     }
-    .csv-summary-card .csv-sv { font-family: var(--font-title); font-size: 2rem; font-weight: 900; line-height: 1; margin-bottom: 4px; }
-    .csv-summary-card .csv-sl { font-family: var(--font-mono); font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
+    .csv-summary-card .csv-sv {
+      font-family: var(--font-title);
+      font-size: 2rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .csv-summary-card .csv-sl {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
   </style>
 </head>
+
 <body>
 
-<!-- =========================================================================
+  <!-- =========================================================================
      HEADER — Presentación del proyecto
 ========================================================================== -->
-<header>
-  <div class="eyebrow">Analítica de Datos · Proyecto Final</div>
-  <h1>Iris Flower Classifier</h1>
-  <p>Clasificación de especies de flores mediante Regresión Logística y Redes Neuronales entrenadas sobre el dataset UCI Iris.</p>
-  <div class="tech-tags">
-    <span class="tech-tag">Python 3</span>
-    <span class="tech-tag">Scikit-learn</span>
-    <span class="tech-tag">Flask API</span>
-    <span class="tech-tag">Chart.js</span>
-    <span class="tech-tag">UCI Iris Dataset</span>
-  </div>
-</header>
+  <header>
+    <div class="eyebrow">Analítica de Datos · Proyecto Final</div>
+    <h1>Iris Flower Classifier</h1>
+    <p>Clasificación de especies de flores mediante Regresión Logística y Redes Neuronales entrenadas sobre el dataset
+      UCI Iris.</p>
+    <div class="tech-tags">
+      <span class="tech-tag">Python 3</span>
+      <span class="tech-tag">Scikit-learn</span>
+      <span class="tech-tag">Flask API</span>
+      <span class="tech-tag">Chart.js</span>
+      <span class="tech-tag">UCI Iris Dataset</span>
+    </div>
+  </header>
 
-<div class="container">
+  <div class="container">
 
-  <!-- =======================================================================
+    <!-- =======================================================================
        SECCIÓN: SOBRE EL DATASET
   ======================================================================== -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">0</div>
-      <h2 class="section-title">El Dataset Iris</h2>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">0</div>
+        <h2 class="section-title">El Dataset Iris</h2>
+      </div>
+
+      <div class="card">
+        <!-- Variables del dataset -->
+        <div class="info-grid">
+          <div class="info-box">
+            <div class="icon">📏</div>
+            <h4>Sepal Length</h4>
+            <p>Largo del sépalo en centímetros. El sépalo es la parte verde que protege la flor cuando está en capullo.
+            </p>
+          </div>
+          <div class="info-box">
+            <div class="icon">📐</div>
+            <h4>Sepal Width</h4>
+            <p>Ancho del sépalo en centímetros. Variable relevante para distinguir Setosa de las otras especies.</p>
+          </div>
+          <div class="info-box">
+            <div class="icon">🌸</div>
+            <h4>Petal Length</h4>
+            <p>Largo del pétalo en centímetros. Una de las variables más discriminativas del dataset.</p>
+          </div>
+          <div class="info-box">
+            <div class="icon">📊</div>
+            <h4>Petal Width</h4>
+            <p>Ancho del pétalo en centímetros. Junto al largo, permite separar casi perfectamente las 3 clases.</p>
+          </div>
+        </div>
+
+        <!-- Especies -->
+        <div class="species-grid">
+          <div class="species-card s0">
+            <div class="sp-emoji">🌿</div>
+            <h4 style="color:var(--setosa)">Iris Setosa</h4>
+            <p>Pétalos muy pequeños. Linealmente separable. La más fácil de identificar. (Clase 0)</p>
+          </div>
+          <div class="species-card s1">
+            <div class="sp-emoji">🌼</div>
+            <h4 style="color:var(--versicolor)">Iris Versicolor</h4>
+            <p>Especie intermedia. Puede confundirse con Virginica en algunos casos. (Clase 1)</p>
+          </div>
+          <div class="species-card s2">
+            <div class="sp-emoji">🌺</div>
+            <h4 style="color:var(--virginica)">Iris Virginica</h4>
+            <p>Pétalos más grandes. La más difícil de distinguir de Versicolor. (Clase 2)</p>
+          </div>
+        </div>
+
+        <div
+          style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:16px; font-family:var(--font-mono); font-size:12px; color:var(--text-muted); line-height:2;">
+          <strong style="color:var(--text)">Estadísticas del dataset:</strong> &nbsp;150 muestras totales &nbsp;·&nbsp;
+          50 por clase &nbsp;·&nbsp; 4 features &nbsp;·&nbsp; 3 clases &nbsp;·&nbsp; 0 valores nulos &nbsp;·&nbsp;
+          Dataset balanceado
+        </div>
+      </div>
     </div>
 
-    <div class="card">
-      <!-- Variables del dataset -->
-      <div class="info-grid">
-        <div class="info-box">
-          <div class="icon">📏</div>
-          <h4>Sepal Length</h4>
-          <p>Largo del sépalo en centímetros. El sépalo es la parte verde que protege la flor cuando está en capullo.</p>
-        </div>
-        <div class="info-box">
-          <div class="icon">📐</div>
-          <h4>Sepal Width</h4>
-          <p>Ancho del sépalo en centímetros. Variable relevante para distinguir Setosa de las otras especies.</p>
-        </div>
-        <div class="info-box">
-          <div class="icon">🌸</div>
-          <h4>Petal Length</h4>
-          <p>Largo del pétalo en centímetros. Una de las variables más discriminativas del dataset.</p>
-        </div>
-        <div class="info-box">
-          <div class="icon">📊</div>
-          <h4>Petal Width</h4>
-          <p>Ancho del pétalo en centímetros. Junto al largo, permite separar casi perfectamente las 3 clases.</p>
-        </div>
-      </div>
-
-      <!-- Especies -->
-      <div class="species-grid">
-        <div class="species-card s0">
-          <div class="sp-emoji">🌿</div>
-          <h4 style="color:var(--setosa)">Iris Setosa</h4>
-          <p>Pétalos muy pequeños. Linealmente separable. La más fácil de identificar. (Clase 0)</p>
-        </div>
-        <div class="species-card s1">
-          <div class="sp-emoji">🌼</div>
-          <h4 style="color:var(--versicolor)">Iris Versicolor</h4>
-          <p>Especie intermedia. Puede confundirse con Virginica en algunos casos. (Clase 1)</p>
-        </div>
-        <div class="species-card s2">
-          <div class="sp-emoji">🌺</div>
-          <h4 style="color:var(--virginica)">Iris Virginica</h4>
-          <p>Pétalos más grandes. La más difícil de distinguir de Versicolor. (Clase 2)</p>
-        </div>
-      </div>
-
-      <div style="background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:16px; font-family:var(--font-mono); font-size:12px; color:var(--text-muted); line-height:2;">
-        <strong style="color:var(--text)">Estadísticas del dataset:</strong> &nbsp;150 muestras totales &nbsp;·&nbsp; 50 por clase &nbsp;·&nbsp; 4 features &nbsp;·&nbsp; 3 clases &nbsp;·&nbsp; 0 valores nulos &nbsp;·&nbsp; Dataset balanceado
-      </div>
-    </div>
-  </div>
-
-  <!-- =======================================================================
+    <!-- =======================================================================
        SECCIÓN 1: PREDICCIÓN INDIVIDUAL
   ======================================================================== -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">1</div>
-      <h2 class="section-title">Predicción Individual</h2>
-    </div>
-
-    <div class="card">
-      <p style="color:var(--text-muted); margin-bottom:24px; font-size:14px;">
-        Ingresa las mediciones de una flor. Los dos modelos clasificarán la especie de manera independiente y podrás comparar sus resultados y probabilidades.
-      </p>
-
-      <!-- Formulario de entrada -->
-      <div class="form-grid">
-        <div class="form-group">
-          <label for="sepal_length">Sepal Length (cm)</label>
-          <input type="number" id="sepal_length" step="0.1" min="0" max="10" placeholder="ej. 5.1" value="5.1">
-        </div>
-        <div class="form-group">
-          <label for="sepal_width">Sepal Width (cm)</label>
-          <input type="number" id="sepal_width" step="0.1" min="0" max="10" placeholder="ej. 3.5" value="3.5">
-        </div>
-        <div class="form-group">
-          <label for="petal_length">Petal Length (cm)</label>
-          <input type="number" id="petal_length" step="0.1" min="0" max="10" placeholder="ej. 1.4" value="1.4">
-        </div>
-        <div class="form-group">
-          <label for="petal_width">Petal Width (cm)</label>
-          <input type="number" id="petal_width" step="0.1" min="0" max="10" placeholder="ej. 0.2" value="0.2">
-        </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <h2 class="section-title">Predicción Individual</h2>
       </div>
 
-      <!-- Ejemplos reales del dataset UCI Iris -->
-      <div style="margin-bottom:20px;">
-        <p style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">
-          Ejemplos reales del dataset · haz clic para cargar:
+      <div class="card">
+        <p style="color:var(--text-muted); margin-bottom:24px; font-size:14px;">
+          Ingresa las mediciones de una flor. Los dos modelos clasificarán la especie de manera independiente y podrás
+          comparar sus resultados y probabilidades.
         </p>
 
-        <p style="font-family:var(--font-mono); font-size:10px; color:var(--setosa); letter-spacing:1px; margin-bottom:6px; text-transform:uppercase;">🌿 Iris Setosa — pétalos muy pequeños</p>
-        <div class="flex gap-12" style="flex-wrap:wrap; margin-bottom:12px;">
-          <button class="btn btn-secondary" style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(5.1,3.5,1.4,0.2)">5.1 · 3.5 · 1.4 · 0.2</button>
-          <button class="btn btn-secondary" style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(4.7,3.2,1.3,0.2)">4.7 · 3.2 · 1.3 · 0.2</button>
-          <button class="btn btn-secondary" style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(5.4,3.9,1.7,0.4)">5.4 · 3.9 · 1.7 · 0.4</button>
+        <!-- Formulario de entrada -->
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="sepal_length">Sepal Length (cm)</label>
+            <input type="number" id="sepal_length" step="0.1" min="0" max="10" placeholder="ej. 5.1" value="5.1">
+          </div>
+          <div class="form-group">
+            <label for="sepal_width">Sepal Width (cm)</label>
+            <input type="number" id="sepal_width" step="0.1" min="0" max="10" placeholder="ej. 3.5" value="3.5">
+          </div>
+          <div class="form-group">
+            <label for="petal_length">Petal Length (cm)</label>
+            <input type="number" id="petal_length" step="0.1" min="0" max="10" placeholder="ej. 1.4" value="1.4">
+          </div>
+          <div class="form-group">
+            <label for="petal_width">Petal Width (cm)</label>
+            <input type="number" id="petal_width" step="0.1" min="0" max="10" placeholder="ej. 0.2" value="0.2">
+          </div>
         </div>
 
-        <p style="font-family:var(--font-mono); font-size:10px; color:var(--versicolor); letter-spacing:1px; margin-bottom:6px; text-transform:uppercase;">🌼 Iris Versicolor — pétalos medianos</p>
-        <div class="flex gap-12" style="flex-wrap:wrap; margin-bottom:12px;">
-          <button class="btn btn-secondary" style="border-color:rgba(251,146,60,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(7.0,3.2,4.7,1.4)">7.0 · 3.2 · 4.7 · 1.4</button>
-          <button class="btn btn-secondary" style="border-color:rgba(251,146,60,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(5.5,2.3,4.0,1.3)">5.5 · 2.3 · 4.0 · 1.3</button>
-          <button class="btn btn-secondary" style="border-color:rgba(251,146,60,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(4.9,2.4,3.3,1.0)">4.9 · 2.4 · 3.3 · 1.0</button>
+        <!-- Ejemplos reales del dataset UCI Iris -->
+        <div style="margin-bottom:20px;">
+          <p
+            style="font-family:var(--font-mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px;">
+            Ejemplos reales del dataset · haz clic para cargar:
+          </p>
+
+          <p
+            style="font-family:var(--font-mono); font-size:10px; color:var(--setosa); letter-spacing:1px; margin-bottom:6px; text-transform:uppercase;">
+            🌿 Iris Setosa — pétalos muy pequeños</p>
+          <div class="flex gap-12" style="flex-wrap:wrap; margin-bottom:12px;">
+            <button class="btn btn-secondary"
+              style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(5.1,3.5,1.4,0.2)">5.1 · 3.5 · 1.4 · 0.2</button>
+            <button class="btn btn-secondary"
+              style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(4.7,3.2,1.3,0.2)">4.7 · 3.2 · 1.3 · 0.2</button>
+            <button class="btn btn-secondary"
+              style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(5.4,3.9,1.7,0.4)">5.4 · 3.9 · 1.7 · 0.4</button>
+          </div>
+
+          <p
+            style="font-family:var(--font-mono); font-size:10px; color:var(--versicolor); letter-spacing:1px; margin-bottom:6px; text-transform:uppercase;">
+            🌼 Iris Versicolor — pétalos medianos</p>
+          <div class="flex gap-12" style="flex-wrap:wrap; margin-bottom:12px;">
+            <button class="btn btn-secondary"
+              style="border-color:rgba(251,146,60,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(7.0,3.2,4.7,1.4)">7.0 · 3.2 · 4.7 · 1.4</button>
+            <button class="btn btn-secondary"
+              style="border-color:rgba(251,146,60,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(5.5,2.3,4.0,1.3)">5.5 · 2.3 · 4.0 · 1.3</button>
+            <button class="btn btn-secondary"
+              style="border-color:rgba(251,146,60,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(4.9,2.4,3.3,1.0)">4.9 · 2.4 · 3.3 · 1.0</button>
+          </div>
+
+          <p
+            style="font-family:var(--font-mono); font-size:10px; color:var(--virginica); letter-spacing:1px; margin-bottom:6px; text-transform:uppercase;">
+            🌺 Iris Virginica — pétalos grandes</p>
+          <div class="flex gap-12" style="flex-wrap:wrap; margin-bottom:12px;">
+            <button class="btn btn-secondary"
+              style="border-color:rgba(244,114,182,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(6.3,3.3,6.0,2.5)">6.3 · 3.3 · 6.0 · 2.5</button>
+            <button class="btn btn-secondary"
+              style="border-color:rgba(244,114,182,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(7.6,3.0,6.6,2.1)">7.6 · 3.0 · 6.6 · 2.1</button>
+            <button class="btn btn-secondary"
+              style="border-color:rgba(244,114,182,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(7.3,2.9,6.3,1.8)">7.3 · 2.9 · 6.3 · 1.8</button>
+          </div>
+
+          <p
+            style="font-family:var(--font-mono); font-size:10px; color:var(--accent); letter-spacing:1px; margin-bottom:6px; text-transform:uppercase;">
+            ⚠️ Casos frontera — los modelos pueden discrepar</p>
+          <div class="flex gap-12" style="flex-wrap:wrap; margin-bottom:8px;">
+            <button class="btn btn-secondary"
+              style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(6.0,2.7,5.1,1.6)"
+              title="Versicolor con pétalo largo — LR=Versicolor, NN=Virginica">6.0 · 2.7 · 5.1 · 1.6 <span
+                style="color:var(--text-muted);font-size:9px;">LR≠NN</span></button>
+            <button class="btn btn-secondary"
+              style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(6.3,2.5,4.9,1.5)" title="Versicolor zona límite">6.3 · 2.5 · 4.9 · 1.5 <span
+                style="color:var(--text-muted);font-size:9px;">LR≠NN</span></button>
+            <button class="btn btn-secondary"
+              style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;"
+              onclick="fillExample(6.7,3.0,5.0,1.7)" title="Versicolor con pétalo largo ambiguo">6.7 · 3.0 · 5.0 · 1.7
+              <span style="color:var(--text-muted);font-size:9px;">LR≠NN</span></button>
+          </div>
+          <p style="font-family:var(--font-mono); font-size:10px; color:var(--text-muted);">sl = sepal length
+            &nbsp;·&nbsp; sw = sepal width &nbsp;·&nbsp; pl = petal length &nbsp;·&nbsp; pw = petal width</p>
         </div>
 
-        <p style="font-family:var(--font-mono); font-size:10px; color:var(--virginica); letter-spacing:1px; margin-bottom:6px; text-transform:uppercase;">🌺 Iris Virginica — pétalos grandes</p>
-        <div class="flex gap-12" style="flex-wrap:wrap; margin-bottom:12px;">
-          <button class="btn btn-secondary" style="border-color:rgba(244,114,182,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(6.3,3.3,6.0,2.5)">6.3 · 3.3 · 6.0 · 2.5</button>
-          <button class="btn btn-secondary" style="border-color:rgba(244,114,182,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(7.6,3.0,6.6,2.1)">7.6 · 3.0 · 6.6 · 2.1</button>
-          <button class="btn btn-secondary" style="border-color:rgba(244,114,182,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(7.3,2.9,6.3,1.8)">7.3 · 2.9 · 6.3 · 1.8</button>
-        </div>
+        <!-- Botón de predicción -->
+        <button class="btn btn-primary" id="btn-predict" onclick="predictSingle()">
+          <span>⚡</span> Clasificar Flor
+        </button>
 
-        <p style="font-family:var(--font-mono); font-size:10px; color:var(--accent); letter-spacing:1px; margin-bottom:6px; text-transform:uppercase;">⚠️ Casos frontera — los modelos pueden discrepar</p>
-        <div class="flex gap-12" style="flex-wrap:wrap; margin-bottom:8px;">
-          <button class="btn btn-secondary" style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(6.0,2.7,5.1,1.6)" title="Versicolor con pétalo largo — LR=Versicolor, NN=Virginica">6.0 · 2.7 · 5.1 · 1.6 <span style="color:var(--text-muted);font-size:9px;">LR≠NN</span></button>
-          <button class="btn btn-secondary" style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(6.3,2.5,4.9,1.5)" title="Versicolor zona límite">6.3 · 2.5 · 4.9 · 1.5 <span style="color:var(--text-muted);font-size:9px;">LR≠NN</span></button>
-          <button class="btn btn-secondary" style="border-color:rgba(52,211,153,0.3); font-family:var(--font-mono); font-size:11px;" onclick="fillExample(6.7,3.0,5.0,1.7)" title="Versicolor con pétalo largo ambiguo">6.7 · 3.0 · 5.0 · 1.7 <span style="color:var(--text-muted);font-size:9px;">LR≠NN</span></button>
+        <!-- Estado de carga -->
+        <div id="predict-loading" class="loading hidden">
+          <div class="spinner"></div> Consultando modelos...
         </div>
-        <p style="font-family:var(--font-mono); font-size:10px; color:var(--text-muted);">sl = sepal length &nbsp;·&nbsp; sw = sepal width &nbsp;·&nbsp; pl = petal length &nbsp;·&nbsp; pw = petal width</p>
+        <div id="predict-error" class="error-msg hidden"></div>
       </div>
 
-      <!-- Botón de predicción -->
-      <button class="btn btn-primary" id="btn-predict" onclick="predictSingle()">
-        <span>⚡</span> Clasificar Flor
-      </button>
-
-      <!-- Estado de carga -->
-      <div id="predict-loading" class="loading hidden">
-        <div class="spinner"></div> Consultando modelos...
+      <!-- Resultado de predicción -->
+      <div id="result-section" style="margin-top: 20px;">
+        <div class="result-grid" id="result-cards"></div>
       </div>
-      <div id="predict-error" class="error-msg hidden"></div>
     </div>
 
-    <!-- Resultado de predicción -->
-    <div id="result-section" style="margin-top: 20px;">
-      <div class="result-grid" id="result-cards"></div>
-    </div>
-  </div>
-
-  <!-- =======================================================================
+    <!-- =======================================================================
        SECCIÓN 2: PREDICCIÓN POR LOTES
   ======================================================================== -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">2</div>
-      <h2 class="section-title">Predicción por Lotes</h2>
-    </div>
-
-    <div class="card">
-      <p style="color:var(--text-muted); margin-bottom:16px; font-size:14px;">
-        Clasifica múltiples flores a la vez. Ingresa una flor por línea en formato CSV: <code style="color:var(--accent); font-family:var(--font-mono);">sepal_length, sepal_width, petal_length, petal_width</code>
-      </p>
-
-      <div class="batch-hint">
-        📌 Formato esperado (una flor por línea):<br>
-        5.1, 3.5, 1.4, 0.2<br>
-        6.0, 2.7, 5.1, 1.6<br>
-        6.7, 3.3, 5.7, 2.5
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <h2 class="section-title">Predicción por Lotes</h2>
       </div>
 
-      <div class="form-group">
-        <label for="batch-input">Datos de flores</label>
-        <textarea id="batch-input" placeholder="sl, sw, pl, pw">5.1, 3.5, 1.4, 0.2
+      <div class="card">
+        <p style="color:var(--text-muted); margin-bottom:16px; font-size:14px;">
+          Clasifica múltiples flores a la vez. Ingresa una flor por línea en formato CSV: <code
+            style="color:var(--accent); font-family:var(--font-mono);">sepal_length, sepal_width, petal_length, petal_width</code>
+        </p>
+
+        <div class="batch-hint">
+          📌 Formato esperado (una flor por línea):<br>
+          5.1, 3.5, 1.4, 0.2<br>
+          6.0, 2.7, 5.1, 1.6<br>
+          6.7, 3.3, 5.7, 2.5
+        </div>
+
+        <div class="form-group">
+          <label for="batch-input">Datos de flores</label>
+          <textarea id="batch-input" placeholder="sl, sw, pl, pw">5.1, 3.5, 1.4, 0.2
 4.7, 3.2, 1.3, 0.2
 5.4, 3.9, 1.7, 0.4
 7.0, 3.2, 4.7, 1.4
@@ -1134,217 +1673,229 @@
 6.0, 2.7, 5.1, 1.6
 4.9, 2.5, 4.5, 1.7
 5.9, 3.2, 4.8, 1.8</textarea>
-      </div>
+        </div>
 
-      <div class="flex gap-12 mt-16">
-        <button class="btn btn-purple" id="btn-batch" onclick="predictBatch()">
-          <span>🚀</span> Clasificar Lote
-        </button>
-        <button class="btn btn-secondary" onclick="clearBatch()">Limpiar</button>
-      </div>
+        <div class="flex gap-12 mt-16">
+          <button class="btn btn-purple" id="btn-batch" onclick="predictBatch()">
+            <span>🚀</span> Clasificar Lote
+          </button>
+          <button class="btn btn-secondary" onclick="clearBatch()">Limpiar</button>
+        </div>
 
-      <div id="batch-loading" class="loading hidden">
-        <div class="spinner"></div> Procesando lote...
-      </div>
-      <div id="batch-error" class="error-msg hidden"></div>
+        <div id="batch-loading" class="loading hidden">
+          <div class="spinner"></div> Procesando lote...
+        </div>
+        <div id="batch-error" class="error-msg hidden"></div>
 
-      <!-- Resultados del batch -->
-      <div id="batch-results" class="batch-results-grid hidden"></div>
+        <!-- Resultados del batch -->
+        <div id="batch-results" class="batch-results-grid hidden"></div>
+      </div>
     </div>
-  </div>
 
-  <!-- =======================================================================
+    <!-- =======================================================================
        SECCIÓN 3: MÉTRICAS DE MODELOS
   ======================================================================== -->
-  <div class="section">
-    <div class="section-header">
-      <div class="section-number">3</div>
-      <h2 class="section-title">Evaluación de Modelos</h2>
-    </div>
-
-    <div style="margin-bottom:16px; display:flex; gap:12px; flex-wrap:wrap;">
-      <button class="btn btn-primary" onclick="toggleMetrics()">
-        <span id="metrics-btn-icon">📊</span>
-        <span id="metrics-btn-text">Ver Métricas</span>
-      </button>
-      <button class="btn btn-secondary" onclick="loadMetrics()">🔄 Recargar</button>
-    </div>
-
-    <div id="metrics-loading" class="loading hidden">
-      <div class="spinner"></div> Cargando métricas...
-    </div>
-    <div id="metrics-error" class="error-msg hidden"></div>
-
-    <!-- Panel de métricas (oculto inicialmente) -->
-    <div id="metrics-section">
-      <!-- Accuracy grande -->
-      <div class="metrics-grid" id="accuracy-stats"></div>
-
-      <!-- Gráficas -->
-      <div class="charts-grid">
-        <!-- Gráfica de barras: comparación de accuracy -->
-        <div class="chart-card">
-          <div class="chart-title">Comparación de Accuracy</div>
-          <canvas id="accuracy-chart" height="200"></canvas>
-        </div>
-
-        <!-- Matrices de confusión -->
-        <div class="chart-card">
-          <div class="chart-title">Matriz de Confusión — Regresión Logística</div>
-          <div id="cm-lr"></div>
-        </div>
-
-        <div class="chart-card">
-          <div class="chart-title">Matriz de Confusión — Red Neuronal</div>
-          <div id="cm-nn"></div>
-        </div>
+    <div class="section">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <h2 class="section-title">Evaluación de Modelos</h2>
       </div>
 
-      <!-- Interpretación dinámica — se genera desde las métricas reales del JSON -->
-      <div class="card" style="margin-top:20px;" id="interpretation-card">
-        <div class="card-label">Análisis de resultados · Conjunto de prueba: 30 muestras (10 por clase)</div>
-        <div class="card-title">Interpretación de las Matrices Obtenidas</div>
-        <p style="color:var(--text-muted); font-size:14px; margin-bottom:24px; line-height:1.8;">
-          Las matrices muestran cómo clasificó cada modelo las <strong style="color:var(--text)">30 flores del conjunto de prueba</strong>
-          (datos que los modelos <em>nunca vieron</em> durante el entrenamiento). Cada fila es la clase real; cada columna, la clase predicha.
-          Los números sobre la diagonal verde son <strong style="color:var(--setosa)">aciertos</strong>;
-          los que están fuera son <strong style="color:var(--versicolor)">errores</strong>.
-        </p>
+      <div style="margin-bottom:16px; display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="toggleMetrics()">
+          <span id="metrics-btn-icon">📊</span>
+          <span id="metrics-btn-text">Ver Métricas</span>
+        </button>
+        <button class="btn btn-secondary" onclick="loadMetrics()">🔄 Recargar</button>
+      </div>
 
-        <!-- Bloque dinámico — renderizado por buildInterpretation() desde las métricas reales -->
-        <div id="interpretation-body">
-          <div class="loading"><div class="spinner"></div> Carga las métricas para ver la interpretación...</div>
+      <div id="metrics-loading" class="loading hidden">
+        <div class="spinner"></div> Cargando métricas...
+      </div>
+      <div id="metrics-error" class="error-msg hidden"></div>
+
+      <!-- Panel de métricas (oculto inicialmente) -->
+      <div id="metrics-section">
+        <!-- Accuracy grande -->
+        <div class="metrics-grid" id="accuracy-stats"></div>
+
+        <!-- Gráficas -->
+        <div class="charts-grid">
+          <!-- Gráfica de barras: comparación de accuracy -->
+          <div class="chart-card">
+            <div class="chart-title">Comparación de Accuracy</div>
+            <canvas id="accuracy-chart" height="200"></canvas>
+          </div>
+
+          <!-- Matrices de confusión -->
+          <div class="chart-card">
+            <div class="chart-title">Matriz de Confusión — Regresión Logística</div>
+            <div id="cm-lr"></div>
+          </div>
+
+          <div class="chart-card">
+            <div class="chart-title">Matriz de Confusión — Red Neuronal</div>
+            <div id="cm-nn"></div>
+          </div>
+        </div>
+
+        <!-- Interpretación dinámica — se genera desde las métricas reales del JSON -->
+        <div class="card" style="margin-top:20px;" id="interpretation-card">
+          <div class="card-label">Análisis de resultados · Conjunto de prueba: 30 muestras (10 por clase)</div>
+          <div class="card-title">Interpretación de las Matrices Obtenidas</div>
+          <p style="color:var(--text-muted); font-size:14px; margin-bottom:24px; line-height:1.8;">
+            Las matrices muestran cómo clasificó cada modelo las <strong style="color:var(--text)">30 flores del
+              conjunto de prueba</strong>
+            (datos que los modelos <em>nunca vieron</em> durante el entrenamiento). Cada fila es la clase real; cada
+            columna, la clase predicha.
+            Los números sobre la diagonal verde son <strong style="color:var(--setosa)">aciertos</strong>;
+            los que están fuera son <strong style="color:var(--versicolor)">errores</strong>.
+          </p>
+
+          <!-- Bloque dinámico — renderizado por buildInterpretation() desde las métricas reales -->
+          <div id="interpretation-body">
+            <div class="loading">
+              <div class="spinner"></div> Carga las métricas para ver la interpretación...
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
 
-  <!-- =======================================================================
+    <!-- =======================================================================
        SECCIÓN CSV — AL FINAL (separador visual + zona de carga)
        El usuario puede subir su propio .csv para ver el análisis completo.
   ======================================================================== -->
 
-  <!-- Separador visual con texto -->
-  <div style="text-align:center; padding:40px 0 32px; position:relative;">
-    <div style="height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); position:absolute; top:50%; left:0; right:0;"></div>
-    <span style="background:var(--bg); padding:0 24px; font-family:var(--font-mono); font-size:12px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; position:relative;">
-      O puedes subir tu archivo .csv del dataset aquí
-    </span>
-  </div>
-
-  <div class="section" id="csv-section">
-    <div class="section-header">
-      <div class="section-number" style="background:linear-gradient(135deg,var(--accent2),#b45309)">📂</div>
-      <h2 class="section-title">Análisis desde tu Dataset CSV</h2>
+    <!-- Separador visual con texto -->
+    <div style="text-align:center; padding:40px 0 32px; position:relative;">
+      <div
+        style="height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); position:absolute; top:50%; left:0; right:0;">
+      </div>
+      <span
+        style="background:var(--bg); padding:0 24px; font-family:var(--font-mono); font-size:12px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; position:relative;">
+        O puedes subir tu archivo .csv del dataset aquí
+      </span>
     </div>
 
-    <div class="card">
-      <p style="color:var(--muted); font-size:14px; margin-bottom:20px; line-height:1.8;">
-        Sube el archivo <code style="color:var(--accent);font-family:var(--font-mono)">.csv</code> del dataset Iris.
-        Se lee directamente en el navegador — sin subir nada al servidor.
-        Compatible con el dataset UCI Iris original (columna <code style="font-family:var(--font-mono);color:var(--accent2)">variety</code> incluida).
-      </p>
-
-      <!-- ── Zona de carga ── -->
-      <div class="upload-zone" id="upload-zone"
-           ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
-        <input type="file" id="csv-file-input" accept=".csv" onchange="handleFileSelect(event)">
-        <div class="upload-icon">📄</div>
-        <div class="upload-title">Arrastra tu CSV aquí o haz clic para elegir</div>
-        <div class="upload-sub">sepal_length, sepal_width, petal_length, petal_width [, clase]</div>
-        <div class="upload-hint">Soporta: con/sin encabezado · separador , o ; · clase como texto o número</div>
+    <div class="section" id="csv-section">
+      <div class="section-header">
+        <div class="section-number" style="background:linear-gradient(135deg,var(--accent2),#b45309)">📂</div>
+        <h2 class="section-title">Análisis desde tu Dataset CSV</h2>
       </div>
 
-      <!-- Archivo cargado -->
-      <div id="file-info" class="file-info hidden">
-        <span class="file-icon">✅</span>
-        <div style="flex:1">
-          <div class="file-name" id="file-name-display">—</div>
-          <div class="file-meta" id="file-meta-display">—</div>
+      <div class="card">
+        <p style="color:var(--muted); font-size:14px; margin-bottom:20px; line-height:1.8;">
+          Sube el archivo <code style="color:var(--accent);font-family:var(--font-mono)">.csv</code> del dataset Iris.
+          Se lee directamente en el navegador — sin subir nada al servidor.
+          Compatible con el dataset UCI Iris original (columna <code
+            style="font-family:var(--font-mono);color:var(--accent2)">variety</code> incluida).
+        </p>
+
+        <!-- ── Zona de carga ── -->
+        <div class="upload-zone" id="upload-zone" ondragover="handleDragOver(event)"
+          ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+          <input type="file" id="csv-file-input" accept=".csv" onchange="handleFileSelect(event)">
+          <div class="upload-icon">📄</div>
+          <div class="upload-title">Arrastra tu CSV aquí o haz clic para elegir</div>
+          <div class="upload-sub">sepal_length, sepal_width, petal_length, petal_width [, clase]</div>
+          <div class="upload-hint">Soporta: con/sin encabezado · separador , o ; · clase como texto o número</div>
         </div>
-        <button class="btn btn-secondary" style="padding:6px 16px;font-size:12px;" onclick="clearCSV()">✕ Quitar</button>
-      </div>
 
-      <div id="csv-parse-error" class="error-msg hidden"></div>
-
-      <!-- ── PANEL PRE: stats + botón clasificar ── -->
-      <div id="csv-pre-panel" class="hidden" style="margin-top:24px;">
-        <div id="csv-stats-row" class="csv-stats" style="margin-bottom:24px;"></div>
-        <div class="flex gap-12" style="align-items:center;">
-          <button class="btn btn-primary" id="btn-classify-init" onclick="predictCSVBatch()">
-            <span>⚡</span> Clasificar dataset con ambos modelos
-          </button>
-          <div id="csv-batch-progress2" class="loading hidden">
-            <div class="spinner"></div>
-            <span id="csv-progress-text2">Procesando...</span>
+        <!-- Archivo cargado -->
+        <div id="file-info" class="file-info hidden">
+          <span class="file-icon">✅</span>
+          <div style="flex:1">
+            <div class="file-name" id="file-name-display">—</div>
+            <div class="file-meta" id="file-meta-display">—</div>
           </div>
+          <button class="btn btn-secondary" style="padding:6px 16px;font-size:12px;" onclick="clearCSV()">✕
+            Quitar</button>
         </div>
-      </div>
 
-      <!-- ── PANEL DE RESULTADOS ── se construye dinámicamente tras clasificar -->
-      <div id="csv-results-panel" class="hidden" style="margin-top:28px;">
+        <div id="csv-parse-error" class="error-msg hidden"></div>
 
-        <!-- NIVEL 1: Tarjetas de resumen siempre visibles -->
-        <div id="csv-summary-cards"
-             style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:20px;"></div>
-
-        <!-- Primeras 10 filas — siempre visibles -->
-        <div id="csv-preview-10" style="margin-bottom:16px;"></div>
-
-        <!-- Botones de expansión -->
-        <div class="flex gap-12 flex-wrap" style="margin-bottom:20px;align-items:center;">
-          <button class="btn btn-secondary" id="btn-show-more" onclick="showCSVMore()" style="display:none;">
-            📋 Ver más resultados
-          </button>
-          <button class="btn btn-secondary" id="btn-show-all" onclick="toggleCSVGrid()" style="display:none;">
-            🌸 Mostrar todos
-          </button>
-          <button class="btn btn-secondary" id="btn-show-matrices" onclick="toggleCSVMatrices()" style="display:none;">
-            📊 Ver matrices y gráficas
-          </button>
-          <button class="btn btn-secondary" id="btn-classify-all" onclick="predictCSVBatch()" style="display:none;">
-            🔄 Reclasificar
-          </button>
-          <div id="csv-batch-progress" class="loading hidden">
-            <div class="spinner"></div>
-            <span id="csv-progress-text">Procesando...</span>
+        <!-- ── PANEL PRE: stats + botón clasificar ── -->
+        <div id="csv-pre-panel" class="hidden" style="margin-top:24px;">
+          <div id="csv-stats-row" class="csv-stats" style="margin-bottom:24px;"></div>
+          <div class="flex gap-12" style="align-items:center;">
+            <button class="btn btn-primary" id="btn-classify-init" onclick="predictCSVBatch()">
+              <span>⚡</span> Clasificar dataset con ambos modelos
+            </button>
+            <div id="csv-batch-progress2" class="loading hidden">
+              <div class="spinner"></div>
+              <span id="csv-progress-text2">Procesando...</span>
+            </div>
           </div>
         </div>
 
-        <!-- NIVEL 2: Filas 11-50 (oculto por defecto) -->
-        <div id="csv-rows-more" class="hidden" style="margin-bottom:16px;"></div>
+        <!-- ── PANEL DE RESULTADOS ── se construye dinámicamente tras clasificar -->
+        <div id="csv-results-panel" class="hidden" style="margin-top:28px;">
 
-        <!-- NIVEL 3: Galería completa con imagen por flor (oculto) -->
-        <div id="csv-flower-grid" class="hidden"></div>
+          <!-- NIVEL 1: Tarjetas de resumen siempre visibles -->
+          <div id="csv-summary-cards"
+            style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:14px;margin-bottom:20px;">
+          </div>
 
-        <!-- NIVEL 4: Matrices y gráficas del CSV (oculto) -->
-        <div id="csv-matrices-panel" class="hidden" style="margin-top:8px;"></div>
+          <!-- Primeras 10 filas — siempre visibles -->
+          <div id="csv-preview-10" style="margin-bottom:16px;"></div>
 
-      </div><!-- /csv-results-panel -->
-    </div><!-- /card -->
-  </div><!-- /section -->
+          <!-- Botones de expansión -->
+          <div class="flex gap-12 flex-wrap" style="margin-bottom:20px;align-items:center;">
+            <button class="btn btn-secondary" id="btn-show-more" onclick="showCSVMore()" style="display:none;">
+              📋 Ver más resultados
+            </button>
+            <button class="btn btn-secondary" id="btn-show-all" onclick="toggleCSVGrid()" style="display:none;">
+              🌸 Mostrar todos
+            </button>
+            <button class="btn btn-secondary" id="btn-show-matrices" onclick="toggleCSVMatrices()"
+              style="display:none;">
+              📊 Ver matrices y gráficas
+            </button>
+            <button class="btn btn-secondary" id="btn-classify-all" onclick="predictCSVBatch()" style="display:none;">
+              🔄 Reclasificar
+            </button>
+            <div id="csv-batch-progress" class="loading hidden">
+              <div class="spinner"></div>
+              <span id="csv-progress-text">Procesando...</span>
+            </div>
+          </div>
 
-  <!-- Modal de flor — fixed, fuera del card -->
-  <div id="flower-modal" class="flower-modal hidden" onclick="closeFlowerModal(event)">
-    <div class="flower-modal-box" onclick="event.stopPropagation()">
-      <button class="modal-close" onclick="document.getElementById('flower-modal').classList.add('hidden');document.body.style.overflow=''">✕</button>
-      <div id="flower-modal-content"></div>
+          <!-- NIVEL 2: Filas 11-50 (oculto por defecto) -->
+          <div id="csv-rows-more" class="hidden" style="margin-bottom:16px;"></div>
+
+          <!-- NIVEL 3: Galería completa con imagen por flor (oculto) -->
+          <div id="csv-flower-grid" class="hidden"></div>
+
+          <!-- NIVEL 4: Matrices y gráficas del CSV (oculto) -->
+          <div id="csv-matrices-panel" class="hidden" style="margin-top:8px;"></div>
+
+        </div><!-- /csv-results-panel -->
+      </div><!-- /card -->
+    </div><!-- /section -->
+
+    <!-- Modal de flor — fixed, fuera del card -->
+    <div id="flower-modal" class="flower-modal hidden" onclick="closeFlowerModal(event)">
+      <div class="flower-modal-box" onclick="event.stopPropagation()">
+        <button class="modal-close"
+          onclick="document.getElementById('flower-modal').classList.add('hidden');document.body.style.overflow=''">✕</button>
+        <div id="flower-modal-content"></div>
+      </div>
     </div>
-  </div>
 
-</div><!-- /container -->
+  </div><!-- /container -->
 
-<!-- =========================================================================
+  <!-- =========================================================================
      FOOTER
 ========================================================================== -->
-<footer>
-  Proyecto Final · Analítica de Datos · Dataset <span>UCI Iris</span> · 
-  Scikit-learn + Flask + Chart.js
-</footer>
+  <footer>
+    Proyecto Final · Analítica de Datos · Dataset <span>UCI Iris</span> ·
+    Scikit-learn + Flask + Chart.js
+  </footer>
 
 
-<!-- =========================================================================
+  <!-- =========================================================================
      JAVASCRIPT — Lógica del frontend
      
      Aquí se maneja toda la interactividad:
@@ -1353,74 +1904,74 @@
      3. Gráficas con Chart.js
      4. Manejo de estados (loading, error, success)
 ========================================================================== -->
-<script>
-/**
- * CONFIGURACIÓN
- * -------------
- * URL base de la API Flask. Si cambias el puerto en app.py, cámbialo aquí también.
- */
-const API_URL = 'http://localhost:5000';
+  <script>
+    /**
+     * CONFIGURACIÓN
+     * -------------
+     * URL base de la API Flask. Si cambias el puerto en app.py, cámbialo aquí también.
+     */
+    const API_URL = 'http://localhost:5000';
 
-/*
- * SISTEMA DE IMÁGENES DINÁMICO
- * ----------------------------
- * Ya no necesitas configurar nada aquí.
- * La función getFlowerImage() prueba automáticamente estas rutas:
- *   img/{clase}.jpg  → img/{clase}.jpeg  → img/{clase}.png  → img/{clase}.webp
- *
- * Para agregar una nueva especie: pon la imagen en /img/ con el nombre de la clase.
- * Ejemplo: si el modelo devuelve "rosa" → pon img/rosa.jpg y funcionará solo.
- */
+    /*
+     * SISTEMA DE IMÁGENES DINÁMICO
+     * ----------------------------
+     * Ya no necesitas configurar nada aquí.
+     * La función getFlowerImage() prueba automáticamente estas rutas:
+     *   img/{clase}.jpg  → img/{clase}.jpeg  → img/{clase}.png  → img/{clase}.webp
+     *
+     * Para agregar una nueva especie: pon la imagen en /img/ con el nombre de la clase.
+     * Ejemplo: si el modelo devuelve "rosa" → pon img/rosa.jpg y funcionará solo.
+     */
 
-// Emojis de fallback si ninguna imagen local se encuentra
-const FLOWER_EMOJIS = {
-  'setosa': '🌿', 'versicolor': '🌼', 'virginica': '🌺'
-};
+    // Emojis de fallback si ninguna imagen local se encuentra
+    const FLOWER_EMOJIS = {
+      'setosa': '🌿', 'versicolor': '🌼', 'virginica': '🌺'
+    };
 
-/**
- * getFlowerImage(className)
- * -------------------------
- * Función DINÁMICA: genera el HTML de la imagen de la flor.
- * Si la imagen local existe, la muestra. Si no, muestra un emoji de fallback.
- * 
- * Para agregar nuevas clases: agrega la imagen en img/ y actualiza FLOWER_IMAGES.
- * Este código funcionará automáticamente para cualquier clase nueva.
- * 
- * @param {string} className - nombre de la especie ('setosa', 'versicolor', etc.)
- * @returns {string} HTML del contenedor de imagen
- */
-function getFlowerImage(className) {
-  const cls   = className.toLowerCase();
-  const emoji = FLOWER_EMOJIS[cls] || '🌸';
+    /**
+     * getFlowerImage(className)
+     * -------------------------
+     * Función DINÁMICA: genera el HTML de la imagen de la flor.
+     * Si la imagen local existe, la muestra. Si no, muestra un emoji de fallback.
+     * 
+     * Para agregar nuevas clases: agrega la imagen en img/ y actualiza FLOWER_IMAGES.
+     * Este código funcionará automáticamente para cualquier clase nueva.
+     * 
+     * @param {string} className - nombre de la especie ('setosa', 'versicolor', etc.)
+     * @returns {string} HTML del contenedor de imagen
+     */
+    function getFlowerImage(className) {
+      const cls = className.toLowerCase();
+      const emoji = FLOWER_EMOJIS[cls] || '🌸';
 
-  /*
-   * Lista de rutas a intentar EN ORDEN, para cada extensión.
-   * Esto soluciona el problema de Versicolor: si la imagen existe
-   * con cualquier extensión o variante de nombre, la encontrará.
-   *
-   * Dinámico: si mañana agregas una nueva clase, solo necesitas
-   * poner la imagen en img/{nombre}.jpg — sin tocar este código.
-   */
-  const candidates = [
-    `img/${cls}.jpg`,
-    `img/${cls}.jpeg`,
-    `img/${cls}.png`,
-    `img/${cls}.webp`,
-    /* también intentamos con mayúscula inicial por si el archivo se llama Setosa.jpg */
-    `img/${cls.charAt(0).toUpperCase() + cls.slice(1)}.jpg`,
-    `img/${cls.charAt(0).toUpperCase() + cls.slice(1)}.png`,
-  ];
+      /*
+       * Lista de rutas a intentar EN ORDEN, para cada extensión.
+       * Esto soluciona el problema de Versicolor: si la imagen existe
+       * con cualquier extensión o variante de nombre, la encontrará.
+       *
+       * Dinámico: si mañana agregas una nueva clase, solo necesitas
+       * poner la imagen en img/{nombre}.jpg — sin tocar este código.
+       */
+      const candidates = [
+        `img/${cls}.jpg`,
+        `img/${cls}.jpeg`,
+        `img/${cls}.png`,
+        `img/${cls}.webp`,
+        /* también intentamos con mayúscula inicial por si el archivo se llama Setosa.jpg */
+        `img/${cls.charAt(0).toUpperCase() + cls.slice(1)}.jpg`,
+        `img/${cls.charAt(0).toUpperCase() + cls.slice(1)}.png`,
+      ];
 
-  /* Serializamos la lista para pasarla al onerror inline */
-  const candidatesJson = JSON.stringify(candidates).replace(/"/g, '&quot;');
+      /* Serializamos la lista para pasarla al onerror inline */
+      const candidatesJson = JSON.stringify(candidates).replace(/"/g, '&quot;');
 
-  /*
-   * onerror con reintentos:
-   *  - Cada vez que falla una src, el onerror intenta la siguiente de la lista
-   *  - Si se agotan todas las opciones, muestra el placeholder con emoji
-   *  - dataset.idx lleva la cuenta de cuál candidato intentamos
-   */
-  return `
+      /*
+       * onerror con reintentos:
+       *  - Cada vez que falla una src, el onerror intenta la siguiente de la lista
+       *  - Si se agotan todas las opciones, muestra el placeholder con emoji
+       *  - dataset.idx lleva la cuenta de cuál candidato intentamos
+       */
+      return `
     <div class="flower-image-container">
       <img
         src="${candidates[0]}"
@@ -1440,134 +1991,134 @@ function getFlowerImage(className) {
         "
       >
     </div>`;
-}
-
-/**
- * getClassColor(className)
- * ------------------------
- * Devuelve el color CSS de cada especie para los badges y barras.
- * Diseño dinámica: si el nombre no está mapeado, devuelve el acento default.
- */
-function getClassColor(cls) {
-  const colors = {
-    'setosa': 'var(--setosa)', 'versicolor': 'var(--versicolor)', 'virginica': 'var(--virginica)'
-  };
-  return colors[cls.toLowerCase()] || 'var(--accent)';
-}
-
-// ============================================================================
-// PREDICCIÓN INDIVIDUAL
-// ============================================================================
-
-/**
- * fillExample(sl, sw, pl, pw)
- * ---------------------------
- * Rellena el formulario con valores de ejemplo para facilitar las pruebas.
- * Cada ejemplo corresponde a un espécimen típico de cada especie.
- */
-function fillExample(sl, sw, pl, pw) {
-  document.getElementById('sepal_length').value = sl;
-  document.getElementById('sepal_width').value  = sw;
-  document.getElementById('petal_length').value = pl;
-  document.getElementById('petal_width').value  = pw;
-}
-
-/**
- * predictSingle()
- * ---------------
- * FLUJO COMPLETO de predicción individual:
- * 1. Leer valores del formulario
- * 2. Validar que sean números
- * 3. Hacer POST a /predict
- * 4. Renderizar los resultados
- * 
- * Usa async/await para manejar la petición asincrónica de forma limpia.
- */
-async function predictSingle() {
-  // Leer valores de los inputs
-  const sl = parseFloat(document.getElementById('sepal_length').value);
-  const sw = parseFloat(document.getElementById('sepal_width').value);
-  const pl = parseFloat(document.getElementById('petal_length').value);
-  const pw = parseFloat(document.getElementById('petal_width').value);
-  
-  // Validación básica en el frontend (antes de llamar a la API)
-  if ([sl, sw, pl, pw].some(v => isNaN(v) || v < 0)) {
-    showError('predict-error', 'Por favor ingresa valores numéricos válidos y positivos.');
-    return;
-  }
-  
-  // Mostrar estado de carga
-  setLoading('predict', true);
-  hideElement('predict-error');
-  document.getElementById('result-section').style.display = 'none';
-  
-  try {
-    /**
-     * fetch() → API de JavaScript para hacer peticiones HTTP
-     * 
-     * method: 'POST' → enviamos datos al servidor
-     * headers: {'Content-Type': 'application/json'} → le decimos al servidor que enviamos JSON
-     * body: JSON.stringify({...}) → convertimos el objeto JS a string JSON
-     */
-    const response = await fetch(`${API_URL}/predict`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sepal_length: sl, sepal_width: sw,
-        petal_length: pl, petal_width: pw
-      })
-    });
-    
-    // Convertimos la respuesta de JSON a objeto JavaScript
-    const data = await response.json();
-    
-    if (!response.ok) {
-      // Si el servidor devolvió un código de error (4xx, 5xx)
-      throw new Error(data.error || 'Error en el servidor');
     }
-    
-    // Renderizar los resultados
-    renderSingleResult(data);
-    
-  } catch (err) {
-    showError('predict-error', `❌ ${err.message}. ¿Está corriendo el servidor Flask?`);
-  } finally {
-    // finally → siempre se ejecuta, éxito o error
-    setLoading('predict', false);
-  }
-}
 
-/**
- * renderSingleResult(data)
- * ------------------------
- * Renderiza la tarjeta de resultado para CADA MODELO.
- * 
- * Para cada modelo (logistic_regression, neural_network):
- * - Muestra el nombre de la clase predicha como badge
- * - Muestra barras de probabilidad para cada especie
- * - Muestra la imagen de la flor predicha
- * 
- * Este renderizado es DINÁMICO:
- * - Lee las clases del objeto de probabilidades (no hardcodeadas)
- * - Si mañana hay 5 clases, el código renderiza 5 barras automáticamente
- */
-function renderSingleResult(data) {
-  const models = {
-    'logistic_regression': { name: 'Regresión Logística', color: 'var(--accent)',  cssClass: 'lr-card' },
-    'neural_network':      { name: 'Red Neuronal (MLP)',  color: 'var(--accent2)', cssClass: 'nn-card' }
-  };
-  
-  let html = '';
-  
-  for (const [modelKey, modelInfo] of Object.entries(models)) {
-    const result = data[modelKey];          // Resultado de este modelo
-    const cls    = result.class;            // Nombre de la especie predicha
-    const probs  = result.probabilities;    // Objeto {setosa: 98.5, versicolor: 1.2, virginica: 0.3}
-    
-    // Construir barras de probabilidad dinámicamente
-    let probBarsHtml = '';
-    for (const [species, prob] of Object.entries(probs)) {
-      probBarsHtml += `
+    /**
+     * getClassColor(className)
+     * ------------------------
+     * Devuelve el color CSS de cada especie para los badges y barras.
+     * Diseño dinámica: si el nombre no está mapeado, devuelve el acento default.
+     */
+    function getClassColor(cls) {
+      const colors = {
+        'setosa': 'var(--setosa)', 'versicolor': 'var(--versicolor)', 'virginica': 'var(--virginica)'
+      };
+      return colors[cls.toLowerCase()] || 'var(--accent)';
+    }
+
+    // ============================================================================
+    // PREDICCIÓN INDIVIDUAL
+    // ============================================================================
+
+    /**
+     * fillExample(sl, sw, pl, pw)
+     * ---------------------------
+     * Rellena el formulario con valores de ejemplo para facilitar las pruebas.
+     * Cada ejemplo corresponde a un espécimen típico de cada especie.
+     */
+    function fillExample(sl, sw, pl, pw) {
+      document.getElementById('sepal_length').value = sl;
+      document.getElementById('sepal_width').value = sw;
+      document.getElementById('petal_length').value = pl;
+      document.getElementById('petal_width').value = pw;
+    }
+
+    /**
+     * predictSingle()
+     * ---------------
+     * FLUJO COMPLETO de predicción individual:
+     * 1. Leer valores del formulario
+     * 2. Validar que sean números
+     * 3. Hacer POST a /predict
+     * 4. Renderizar los resultados
+     * 
+     * Usa async/await para manejar la petición asincrónica de forma limpia.
+     */
+    async function predictSingle() {
+      // Leer valores de los inputs
+      const sl = parseFloat(document.getElementById('sepal_length').value);
+      const sw = parseFloat(document.getElementById('sepal_width').value);
+      const pl = parseFloat(document.getElementById('petal_length').value);
+      const pw = parseFloat(document.getElementById('petal_width').value);
+
+      // Validación básica en el frontend (antes de llamar a la API)
+      if ([sl, sw, pl, pw].some(v => isNaN(v) || v < 0)) {
+        showError('predict-error', 'Por favor ingresa valores numéricos válidos y positivos.');
+        return;
+      }
+
+      // Mostrar estado de carga
+      setLoading('predict', true);
+      hideElement('predict-error');
+      document.getElementById('result-section').style.display = 'none';
+
+      try {
+        /**
+         * fetch() → API de JavaScript para hacer peticiones HTTP
+         * 
+         * method: 'POST' → enviamos datos al servidor
+         * headers: {'Content-Type': 'application/json'} → le decimos al servidor que enviamos JSON
+         * body: JSON.stringify({...}) → convertimos el objeto JS a string JSON
+         */
+        const response = await fetch(`${API_URL}/predict`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sepal_length: sl, sepal_width: sw,
+            petal_length: pl, petal_width: pw
+          })
+        });
+
+        // Convertimos la respuesta de JSON a objeto JavaScript
+        const data = await response.json();
+
+        if (!response.ok) {
+          // Si el servidor devolvió un código de error (4xx, 5xx)
+          throw new Error(data.error || 'Error en el servidor');
+        }
+
+        // Renderizar los resultados
+        renderSingleResult(data);
+
+      } catch (err) {
+        showError('predict-error', `❌ ${err.message}. ¿Está corriendo el servidor Flask?`);
+      } finally {
+        // finally → siempre se ejecuta, éxito o error
+        setLoading('predict', false);
+      }
+    }
+
+    /**
+     * renderSingleResult(data)
+     * ------------------------
+     * Renderiza la tarjeta de resultado para CADA MODELO.
+     * 
+     * Para cada modelo (logistic_regression, neural_network):
+     * - Muestra el nombre de la clase predicha como badge
+     * - Muestra barras de probabilidad para cada especie
+     * - Muestra la imagen de la flor predicha
+     * 
+     * Este renderizado es DINÁMICO:
+     * - Lee las clases del objeto de probabilidades (no hardcodeadas)
+     * - Si mañana hay 5 clases, el código renderiza 5 barras automáticamente
+     */
+    function renderSingleResult(data) {
+      const models = {
+        'logistic_regression': { name: 'Regresión Logística', color: 'var(--accent)', cssClass: 'lr-card' },
+        'neural_network': { name: 'Red Neuronal (MLP)', color: 'var(--accent2)', cssClass: 'nn-card' }
+      };
+
+      let html = '';
+
+      for (const [modelKey, modelInfo] of Object.entries(models)) {
+        const result = data[modelKey];          // Resultado de este modelo
+        const cls = result.class;            // Nombre de la especie predicha
+        const probs = result.probabilities;    // Objeto {setosa: 98.5, versicolor: 1.2, virginica: 0.3}
+
+        // Construir barras de probabilidad dinámicamente
+        let probBarsHtml = '';
+        for (const [species, prob] of Object.entries(probs)) {
+          probBarsHtml += `
         <div class="prob-row">
           <div class="prob-label-row">
             <span>${species}</span>
@@ -1577,185 +2128,185 @@ function renderSingleResult(data) {
             <div class="prob-bar-fill ${species}" style="width:${prob}%"></div>
           </div>
         </div>`;
-    }
-    
-    html += `
+        }
+
+        html += `
       <div class="result-card ${modelInfo.cssClass}" style="border-top: 3px solid ${modelInfo.color}">
         <div class="result-model-name">${modelInfo.name}</div>
         <span class="species-badge ${cls}">${cls}</span>
         <div class="prob-bars">${probBarsHtml}</div>
         ${getFlowerImage(cls)}
       </div>`;
-  }
-  
-  document.getElementById('result-cards').innerHTML = html;
-  document.getElementById('result-section').style.display = 'block';
-  // Scroll suave hacia los resultados
-  document.getElementById('result-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
+      }
 
-// ============================================================================
-// PREDICCIÓN POR LOTES (BATCH)
-// ============================================================================
-
-/**
- * predictBatch()
- * --------------
- * Parsea el textarea de texto CSV → array de arrays de números
- * → llama a la API /predict_batch → renderiza tabla de resultados
- */
-async function predictBatch() {
-  const rawText = document.getElementById('batch-input').value.trim();
-  
-  if (!rawText) {
-    showError('batch-error', 'Por favor ingresa al menos una fila de datos.');
-    return;
-  }
-  
-  // Parsear cada línea como CSV
-  // "5.1, 3.5, 1.4, 0.2" → [5.1, 3.5, 1.4, 0.2]
-  const lines = rawText.split('\n').filter(l => l.trim() !== '');
-  const batchData = [];
-  
-  for (let i = 0; i < lines.length; i++) {
-    const parts = lines[i].split(',').map(v => parseFloat(v.trim()));
-    if (parts.length !== 4 || parts.some(isNaN)) {
-      showError('batch-error', `Error en línea ${i+1}: "${lines[i]}" — debe tener exactamente 4 números.`);
-      return;
+      document.getElementById('result-cards').innerHTML = html;
+      document.getElementById('result-section').style.display = 'block';
+      // Scroll suave hacia los resultados
+      document.getElementById('result-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-    batchData.push(parts);
-  }
-  
-  setLoading('batch', true);
-  hideElement('batch-error');
-  hideElement('batch-results');
-  
-  try {
-    const response = await fetch(`${API_URL}/predict_batch`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ data: batchData })
-    });
-    
-    const data = await response.json();
-    
-    if (!response.ok) throw new Error(data.error || 'Error en el servidor');
-    
-    renderBatchResults(data);
-    
-  } catch (err) {
-    showError('batch-error', `❌ ${err.message}. ¿Está corriendo el servidor Flask?`);
-  } finally {
-    setLoading('batch', false);
-  }
-}
 
-/**
- * renderBatchResults(data)
- * ------------------------
- * Renderiza una tabla con los resultados de cada flor del lote.
- * Dinámica: si hay 100 flores, renderiza 100 filas.
- */
-/**
- * buildInterpretation(lrData, nnData, classNames)
- * ------------------------------------------------
- * Genera el bloque de interpretación de las matrices de confusión
- * DINÁMICAMENTE usando los valores reales de metrics.json.
- * Si el accuracy cambia (por reentrenar el modelo), la explicación
- * se actualiza sola sin tocar el HTML.
- */
-function buildInterpretation(lrData, nnData, classNames) {
-  const TEST_TOTAL = 30;
-  const PER_CLASS  = TEST_TOTAL / classNames.length; // 10
+    // ============================================================================
+    // PREDICCIÓN POR LOTES (BATCH)
+    // ============================================================================
 
-  // ── Helpers ──────────────────────────────────────────────────
-  const pct   = v  => (v * 100).toFixed(2) + '%';
-  const count = cm => cm.reduce((s, row) => s + row.reduce((a,b)=>a+b,0), 0);
+    /**
+     * predictBatch()
+     * --------------
+     * Parsea el textarea de texto CSV → array de arrays de números
+     * → llama a la API /predict_batch → renderiza tabla de resultados
+     */
+    async function predictBatch() {
+      const rawText = document.getElementById('batch-input').value.trim();
 
-  /**
-   * analyzeModel(cm, classNames)
-   * Analiza la matriz de confusión y devuelve stats por clase:
-   *   - aciertos (diagonal), total, errores, hacia qué clase se confundió
-   */
-  function analyzeModel(cm, classNames) {
-    return classNames.map((cls, i) => {
-      const row     = cm[i];
-      const correct = row[i];
-      const total   = row.reduce((a,b)=>a+b,0);
-      const errors  = total - correct;
-      // ¿Con qué clase se confundió más?
-      let worstJ = -1, worstV = 0;
-      row.forEach((v,j) => { if (j!==i && v>worstV) { worstV=v; worstJ=j; } });
-      return { cls, correct, total, errors, confusedWith: worstJ>=0 ? classNames[worstJ] : null, confusedN: worstV };
-    });
-  }
+      if (!rawText) {
+        showError('batch-error', 'Por favor ingresa al menos una fila de datos.');
+        return;
+      }
 
-  /**
-   * classCard(stat, isLR)
-   * Genera el HTML de una tarjeta por especie con el resultado real.
-   */
-  function classCard(stat) {
-    const ok      = stat.errors === 0;
-    const emoji   = ok ? '✅' : '⚠️';
-    const color   = `var(--${stat.cls})`;
-    const pctStr  = ((stat.correct/stat.total)*100).toFixed(0) + '%';
-    let detail = '';
-    if (ok) {
-      const descs = {
-        setosa:     'Sus pétalos muy pequeños (≈1.4 cm largo, ≈0.2 cm ancho) la separan linealmente del resto — ningún modelo la confunde.',
-        versicolor: 'El modelo aprendió correctamente la franja de pétalos medianos (3–5 cm) que caracteriza a esta especie.',
-        virginica:  'Los pétalos grandes (>5 cm) distinguen bien esta especie, y el modelo no cometió ningún error en este conjunto de prueba.'
-      };
-      detail = descs[stat.cls] || 'Clasificación perfecta en este conjunto de prueba.';
-    } else {
-      detail = `${stat.errors} flor${stat.errors>1?'es':''} ${stat.cls} ` +
-               `${stat.errors>1?'fueron':'fue'} confundida${stat.errors>1?'s':''} con ` +
-               `<em>${stat.confusedWith}</em>. Ocurre en la zona de solapamiento donde los pétalos de ` +
-               `${stat.cls} alcanzan medidas similares a las de ${stat.confusedWith}.`;
+      // Parsear cada línea como CSV
+      // "5.1, 3.5, 1.4, 0.2" → [5.1, 3.5, 1.4, 0.2]
+      const lines = rawText.split('\n').filter(l => l.trim() !== '');
+      const batchData = [];
+
+      for (let i = 0; i < lines.length; i++) {
+        const parts = lines[i].split(',').map(v => parseFloat(v.trim()));
+        if (parts.length !== 4 || parts.some(isNaN)) {
+          showError('batch-error', `Error en línea ${i + 1}: "${lines[i]}" — debe tener exactamente 4 números.`);
+          return;
+        }
+        batchData.push(parts);
+      }
+
+      setLoading('batch', true);
+      hideElement('batch-error');
+      hideElement('batch-results');
+
+      try {
+        const response = await fetch(`${API_URL}/predict_batch`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: batchData })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) throw new Error(data.error || 'Error en el servidor');
+
+        renderBatchResults(data);
+
+      } catch (err) {
+        showError('batch-error', `❌ ${err.message}. ¿Está corriendo el servidor Flask?`);
+      } finally {
+        setLoading('batch', false);
+      }
     }
-    return `
+
+    /**
+     * renderBatchResults(data)
+     * ------------------------
+     * Renderiza una tabla con los resultados de cada flor del lote.
+     * Dinámica: si hay 100 flores, renderiza 100 filas.
+     */
+    /**
+     * buildInterpretation(lrData, nnData, classNames)
+     * ------------------------------------------------
+     * Genera el bloque de interpretación de las matrices de confusión
+     * DINÁMICAMENTE usando los valores reales de metrics.json.
+     * Si el accuracy cambia (por reentrenar el modelo), la explicación
+     * se actualiza sola sin tocar el HTML.
+     */
+    function buildInterpretation(lrData, nnData, classNames) {
+      const TEST_TOTAL = 30;
+      const PER_CLASS = TEST_TOTAL / classNames.length; // 10
+
+      // ── Helpers ──────────────────────────────────────────────────
+      const pct = v => (v * 100).toFixed(2) + '%';
+      const count = cm => cm.reduce((s, row) => s + row.reduce((a, b) => a + b, 0), 0);
+
+      /**
+       * analyzeModel(cm, classNames)
+       * Analiza la matriz de confusión y devuelve stats por clase:
+       *   - aciertos (diagonal), total, errores, hacia qué clase se confundió
+       */
+      function analyzeModel(cm, classNames) {
+        return classNames.map((cls, i) => {
+          const row = cm[i];
+          const correct = row[i];
+          const total = row.reduce((a, b) => a + b, 0);
+          const errors = total - correct;
+          // ¿Con qué clase se confundió más?
+          let worstJ = -1, worstV = 0;
+          row.forEach((v, j) => { if (j !== i && v > worstV) { worstV = v; worstJ = j; } });
+          return { cls, correct, total, errors, confusedWith: worstJ >= 0 ? classNames[worstJ] : null, confusedN: worstV };
+        });
+      }
+
+      /**
+       * classCard(stat, isLR)
+       * Genera el HTML de una tarjeta por especie con el resultado real.
+       */
+      function classCard(stat) {
+        const ok = stat.errors === 0;
+        const emoji = ok ? '✅' : '⚠️';
+        const color = `var(--${stat.cls})`;
+        const pctStr = ((stat.correct / stat.total) * 100).toFixed(0) + '%';
+        let detail = '';
+        if (ok) {
+          const descs = {
+            setosa: 'Sus pétalos muy pequeños (≈1.4 cm largo, ≈0.2 cm ancho) la separan linealmente del resto — ningún modelo la confunde.',
+            versicolor: 'El modelo aprendió correctamente la franja de pétalos medianos (3–5 cm) que caracteriza a esta especie.',
+            virginica: 'Los pétalos grandes (>5 cm) distinguen bien esta especie, y el modelo no cometió ningún error en este conjunto de prueba.'
+          };
+          detail = descs[stat.cls] || 'Clasificación perfecta en este conjunto de prueba.';
+        } else {
+          detail = `${stat.errors} flor${stat.errors > 1 ? 'es' : ''} ${stat.cls} ` +
+            `${stat.errors > 1 ? 'fueron' : 'fue'} confundida${stat.errors > 1 ? 's' : ''} con ` +
+            `<em>${stat.confusedWith}</em>. Ocurre en la zona de solapamiento donde los pétalos de ` +
+            `${stat.cls} alcanzan medidas similares a las de ${stat.confusedWith}.`;
+        }
+        return `
       <div style="background:var(--surface); border-radius:8px; padding:14px;">
         <p style="font-family:var(--font-mono); font-size:11px; color:${color}; margin-bottom:6px;">
           ${emoji} ${stat.cls.toUpperCase()} (${stat.correct}/${stat.total} — ${pctStr})
         </p>
         <p style="font-size:13px; color:var(--text-muted); line-height:1.7;">${detail}</p>
       </div>`;
-  }
+      }
 
-  /**
-   * modelBlock(label, data, accentColor, accentRgb, cm, classNames)
-   * Genera el bloque completo de un modelo con su accuracy real,
-   * el conteo de errores y las tarjetas por clase.
-   */
-  function modelBlock(label, mData, accentColor, accentRgb, cm) {
-    const correct = Math.round(mData.accuracy * TEST_TOTAL);
-    const errors  = TEST_TOTAL - correct;
-    const stats   = analyzeModel(cm, classNames);
-    const errorClasses = stats.filter(s => s.errors > 0).map(s => s.cls);
+      /**
+       * modelBlock(label, data, accentColor, accentRgb, cm, classNames)
+       * Genera el bloque completo de un modelo con su accuracy real,
+       * el conteo de errores y las tarjetas por clase.
+       */
+      function modelBlock(label, mData, accentColor, accentRgb, cm) {
+        const correct = Math.round(mData.accuracy * TEST_TOTAL);
+        const errors = TEST_TOTAL - correct;
+        const stats = analyzeModel(cm, classNames);
+        const errorClasses = stats.filter(s => s.errors > 0).map(s => s.cls);
 
-    // Conclusión automática según el modelo y sus errores
-    let conclusion = '';
-    if (errors === 0) {
-      conclusion = `${label} clasificó las ${TEST_TOTAL} muestras del conjunto de prueba sin ningún error. ` +
-                   `Esto refleja que el modelo generalizó perfectamente en este split específico.`;
-    } else if (label.includes('Logística')) {
-      conclusion = `La Regresión Logística comete ${errors} error${errors>1?'es':''} — todos en la zona ` +
-                   `Versicolor/Virginica, que es donde la frontera de decisión <em>lineal</em> no es ` +
-                   `suficiente. Con ${mData.accuracy_pct.toFixed(2)}% de accuracy sigue siendo un resultado excelente para un clasificador lineal.`;
-    } else {
-      conclusion = `La Red Neuronal comete ${errors} error${errors>1?'es':''} en la zona ambigua entre ` +
-                   `${errorClasses.join(' y ')}. Sus capas ocultas aprenden una frontera curva que ` +
-                   `reduce los errores respecto a la Regresión Logística. Accuracy final: ${mData.accuracy_pct.toFixed(2)}%.`;
-    }
+        // Conclusión automática según el modelo y sus errores
+        let conclusion = '';
+        if (errors === 0) {
+          conclusion = `${label} clasificó las ${TEST_TOTAL} muestras del conjunto de prueba sin ningún error. ` +
+            `Esto refleja que el modelo generalizó perfectamente en este split específico.`;
+        } else if (label.includes('Logística')) {
+          conclusion = `La Regresión Logística comete ${errors} error${errors > 1 ? 'es' : ''} — todos en la zona ` +
+            `Versicolor/Virginica, que es donde la frontera de decisión <em>lineal</em> no es ` +
+            `suficiente. Con ${mData.accuracy_pct.toFixed(2)}% de accuracy sigue siendo un resultado excelente para un clasificador lineal.`;
+        } else {
+          conclusion = `La Red Neuronal comete ${errors} error${errors > 1 ? 'es' : ''} en la zona ambigua entre ` +
+            `${errorClasses.join(' y ')}. Sus capas ocultas aprenden una frontera curva que ` +
+            `reduce los errores respecto a la Regresión Logística. Accuracy final: ${mData.accuracy_pct.toFixed(2)}%.`;
+        }
 
-    return `
+        return `
       <div style="background:var(--surface2); border:1px solid rgba(${accentRgb},0.25); border-left:4px solid ${accentColor}; border-radius:10px; padding:20px; margin-bottom:20px;">
         <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap;">
           <span style="font-family:var(--font-mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:${accentColor};">
             ${label} · ${mData.accuracy_pct.toFixed(2)}% accuracy
           </span>
           <span style="background:rgba(${accentRgb},0.15); border:1px solid rgba(${accentRgb},0.3); border-radius:100px; padding:2px 12px; font-family:var(--font-mono); font-size:11px; color:${accentColor};">
-            ${correct}/${TEST_TOTAL} correctas · ${errors} error${errors!==1?'es':''}
+            ${correct}/${TEST_TOTAL} correctas · ${errors} error${errors !== 1 ? 'es' : ''}
           </span>
         </div>
         <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px;">
@@ -1765,29 +2316,29 @@ function buildInterpretation(lrData, nnData, classNames) {
           <strong style="color:var(--text)">Conclusión:</strong> ${conclusion}
         </div>
       </div>`;
-  }
+      }
 
-  // ── Comparación directa ────────────────────────────────────
-  const lrErrors = TEST_TOTAL - Math.round(lrData.accuracy * TEST_TOTAL);
-  const nnErrors = TEST_TOTAL - Math.round(nnData.accuracy * TEST_TOTAL);
-  const diff     = lrErrors - nnErrors;
+      // ── Comparación directa ────────────────────────────────────
+      const lrErrors = TEST_TOTAL - Math.round(lrData.accuracy * TEST_TOTAL);
+      const nnErrors = TEST_TOTAL - Math.round(nnData.accuracy * TEST_TOTAL);
+      const diff = lrErrors - nnErrors;
 
-  let compText = '';
-  if (lrData.accuracy === nnData.accuracy) {
-    compText = 'Ambos modelos obtuvieron el mismo accuracy en este conjunto de prueba. Esto suele ocurrir cuando el split es favorable y los casos ambiguos no cayeron en el test.';
-  } else if (nnData.accuracy > lrData.accuracy) {
-    compText = `La Red Neuronal supera a la Regresión Logística por ${diff} muestra${diff>1?'s':''} adicional${diff>1?'es':''}. ` +
-               `La diferencia radica en la capacidad de la red de aprender fronteras de decisión <em>no lineales</em> ` +
-               `entre Versicolor y Virginica, que es la zona más difícil del dataset.`;
-  } else {
-    compText = `La Regresión Logística iguala o supera a la Red Neuronal en este split. ` +
-               `Con datasets pequeños como Iris, los modelos simples a veces generalizan tan bien como los complejos.`;
-  }
+      let compText = '';
+      if (lrData.accuracy === nnData.accuracy) {
+        compText = 'Ambos modelos obtuvieron el mismo accuracy en este conjunto de prueba. Esto suele ocurrir cuando el split es favorable y los casos ambiguos no cayeron en el test.';
+      } else if (nnData.accuracy > lrData.accuracy) {
+        compText = `La Red Neuronal supera a la Regresión Logística por ${diff} muestra${diff > 1 ? 's' : ''} adicional${diff > 1 ? 'es' : ''}. ` +
+          `La diferencia radica en la capacidad de la red de aprender fronteras de decisión <em>no lineales</em> ` +
+          `entre Versicolor y Virginica, que es la zona más difícil del dataset.`;
+      } else {
+        compText = `La Regresión Logística iguala o supera a la Red Neuronal en este split. ` +
+          `Con datasets pequeños como Iris, los modelos simples a veces generalizan tan bien como los complejos.`;
+      }
 
-  // ── HTML final ────────────────────────────────────────────
-  document.getElementById('interpretation-body').innerHTML = `
-    ${modelBlock('Regresión Logística', lrData, 'var(--accent)',  '16,185,129', lrData.confusion_matrix)}
-    ${modelBlock('Red Neuronal (MLP)', nnData,  'var(--accent2)', '217,119,6',   nnData.confusion_matrix)}
+      // ── HTML final ────────────────────────────────────────────
+      document.getElementById('interpretation-body').innerHTML = `
+    ${modelBlock('Regresión Logística', lrData, 'var(--accent)', '16,185,129', lrData.confusion_matrix)}
+    ${modelBlock('Red Neuronal (MLP)', nnData, 'var(--accent2)', '217,119,6', nnData.confusion_matrix)}
     <div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:20px;">
       <p style="font-family:var(--font-mono); font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--text-muted); margin-bottom:16px;">Comparación directa · ¿por qué difieren los modelos?</p>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:14px;">
@@ -1812,12 +2363,12 @@ function buildInterpretation(lrData, nnData, classNames) {
         </div>
       </div>
     </div>`;
-}
+    }
 
-function renderBatchResults(data) {
-  const container = document.getElementById('batch-results');
-  
-  let html = `
+    function renderBatchResults(data) {
+      const container = document.getElementById('batch-results');
+
+      let html = `
     <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); margin-bottom:12px; letter-spacing:1px; text-transform:uppercase;">
       ${data.total} flores clasificadas
     </div>
@@ -1829,18 +2380,18 @@ function renderBatchResults(data) {
         <span style="font-family:var(--font-mono); font-size:10px; text-transform:uppercase; color:var(--text-muted); text-align:center;">Regresión Log.</span>
         <span style="font-family:var(--font-mono); font-size:10px; text-transform:uppercase; color:var(--text-muted); text-align:center;">Red Neuronal</span>
       </div>`;
-  
-  // Iteramos sobre cada predicción del lote
-  for (const pred of data.predictions) {
-    const lrClass = pred.logistic_regression.class;
-    const nnClass = pred.neural_network.class;
-    const lrProb  = pred.logistic_regression.probabilities[lrClass];
-    const nnProb  = pred.neural_network.probabilities[nnClass];
-    
-    // ¿Los dos modelos coinciden? Indica incertidumbre si difieren.
-    const agree = lrClass === nnClass;
-    
-    html += `
+
+      // Iteramos sobre cada predicción del lote
+      for (const pred of data.predictions) {
+        const lrClass = pred.logistic_regression.class;
+        const nnClass = pred.neural_network.class;
+        const lrProb = pred.logistic_regression.probabilities[lrClass];
+        const nnProb = pred.neural_network.probabilities[nnClass];
+
+        // ¿Los dos modelos coinciden? Indica incertidumbre si difieren.
+        const agree = lrClass === nnClass;
+
+        html += `
       <div class="batch-result-row" style="${!agree ? 'border-color: rgba(251,146,60,0.3)' : ''}">
         <div class="batch-index">${pred.index + 1}</div>
         <div class="batch-inputs">
@@ -1856,73 +2407,73 @@ function renderBatchResults(data) {
           <div class="mini-label">${nnProb}%</div>
         </div>
       </div>`;
-  }
-  
-  html += '</div>';
-  
-  container.innerHTML = html;
-  container.classList.remove('hidden');
-  container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
+      }
 
-function clearBatch() {
-  document.getElementById('batch-input').value = '';
-  hideElement('batch-results');
-  hideElement('batch-error');
-}
+      html += '</div>';
 
-// ============================================================================
-// MÉTRICAS Y GRÁFICAS
-// ============================================================================
+      container.innerHTML = html;
+      container.classList.remove('hidden');
+      container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
 
-let metricsLoaded = false;         // Flag para no recargar si ya hay datos
-let metricsVisible = false;        // Estado de visibilidad del panel
-let accuracyChartInstance = null;  // Referencia al chart para poder destruirlo al recargar
+    function clearBatch() {
+      document.getElementById('batch-input').value = '';
+      hideElement('batch-results');
+      hideElement('batch-error');
+    }
 
-/**
- * toggleMetrics()
- * ---------------
- * Muestra/oculta el panel de métricas.
- * La primera vez que se muestra, carga los datos de la API.
- */
-async function toggleMetrics() {
-  const panel = document.getElementById('metrics-section');
-  metricsVisible = !metricsVisible;
-  
-  panel.style.display = metricsVisible ? 'block' : 'none';
-  document.getElementById('metrics-btn-icon').textContent = metricsVisible ? '🙈' : '📊';
-  document.getElementById('metrics-btn-text').textContent = metricsVisible ? 'Ocultar Métricas' : 'Ver Métricas';
-  
-  if (metricsVisible && !metricsLoaded) {
-    await loadMetrics();
-  }
-}
+    // ============================================================================
+    // MÉTRICAS Y GRÁFICAS
+    // ============================================================================
 
-/**
- * loadMetrics()
- * -------------
- * Carga las métricas desde la API y renderiza:
- * 1. Tarjetas de accuracy grande
- * 2. Gráfica de barras comparativa (Chart.js)
- * 3. Matrices de confusión como heatmaps
- */
-async function loadMetrics() {
-  setLoading('metrics', true);
-  hideElement('metrics-error');
-  
-  try {
-    // GET /metrics → sin body, solo pedimos datos
-    const response = await fetch(`${API_URL}/metrics`);
-    const data = await response.json();
-    
-    if (!response.ok) throw new Error(data.error || 'Error al cargar métricas');
-    
-    const classNames = data.class_names;
-    const lr = data.logistic_regression;
-    const nn = data.neural_network;
-    
-    // --- 1. Tarjetas de accuracy ---
-    document.getElementById('accuracy-stats').innerHTML = `
+    let metricsLoaded = false;         // Flag para no recargar si ya hay datos
+    let metricsVisible = false;        // Estado de visibilidad del panel
+    let accuracyChartInstance = null;  // Referencia al chart para poder destruirlo al recargar
+
+    /**
+     * toggleMetrics()
+     * ---------------
+     * Muestra/oculta el panel de métricas.
+     * La primera vez que se muestra, carga los datos de la API.
+     */
+    async function toggleMetrics() {
+      const panel = document.getElementById('metrics-section');
+      metricsVisible = !metricsVisible;
+
+      panel.style.display = metricsVisible ? 'block' : 'none';
+      document.getElementById('metrics-btn-icon').textContent = metricsVisible ? '🙈' : '📊';
+      document.getElementById('metrics-btn-text').textContent = metricsVisible ? 'Ocultar Métricas' : 'Ver Métricas';
+
+      if (metricsVisible && !metricsLoaded) {
+        await loadMetrics();
+      }
+    }
+
+    /**
+     * loadMetrics()
+     * -------------
+     * Carga las métricas desde la API y renderiza:
+     * 1. Tarjetas de accuracy grande
+     * 2. Gráfica de barras comparativa (Chart.js)
+     * 3. Matrices de confusión como heatmaps
+     */
+    async function loadMetrics() {
+      setLoading('metrics', true);
+      hideElement('metrics-error');
+
+      try {
+        // GET /metrics → sin body, solo pedimos datos
+        const response = await fetch(`${API_URL}/metrics`);
+        const data = await response.json();
+
+        if (!response.ok) throw new Error(data.error || 'Error al cargar métricas');
+
+        const classNames = data.class_names;
+        const lr = data.logistic_regression;
+        const nn = data.neural_network;
+
+        // --- 1. Tarjetas de accuracy ---
+        document.getElementById('accuracy-stats').innerHTML = `
       <div class="metric-stat">
         <div class="value lr-color">${lr.accuracy_pct.toFixed(1)}%</div>
         <div class="label">Accuracy · Regresión Logística</div>
@@ -1931,402 +2482,404 @@ async function loadMetrics() {
         <div class="value nn-color">${nn.accuracy_pct.toFixed(1)}%</div>
         <div class="label">Accuracy · Red Neuronal (MLP)</div>
       </div>`;
-    
-    // --- 2. Gráfica de barras con Chart.js ---
-    if (accuracyChartInstance) {
-      // Destruimos el chart anterior para evitar duplicados
-      accuracyChartInstance.destroy();
-    }
-    
-    const ctx = document.getElementById('accuracy-chart').getContext('2d');
-    
-    /**
-     * Chart.js: librería JavaScript para gráficas interactivas
-     * 
-     * type: 'bar' → gráfica de barras verticales
-     * data.labels → etiquetas del eje X
-     * data.datasets → series de datos a graficar
-     * options → configuración visual del chart
-     */
-    accuracyChartInstance = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Regresión Logística', 'Red Neuronal (MLP)'],
-        datasets: [{
-          label: 'Accuracy (%)',
-          data: [lr.accuracy_pct.toFixed(2), nn.accuracy_pct.toFixed(2)],
-          backgroundColor: [
-            'rgba(79, 156, 249, 0.4)',   // Azul para LR
-            'rgba(124, 58, 237, 0.4)'    // Púrpura para NN
-          ],
-          borderColor: ['#4f9cf9', '#7c3aed'],
-          borderWidth: 2,
-          borderRadius: 6,
-          borderSkipped: false
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: false },  // Sin leyenda (solo hay 1 dataset)
-          tooltip: {
-            callbacks: {
-              // Personaliza el tooltip para mostrar el símbolo %
-              label: (ctx) => ` ${ctx.raw}%`
+
+        // --- 2. Gráfica de barras con Chart.js ---
+        if (accuracyChartInstance) {
+          // Destruimos el chart anterior para evitar duplicados
+          accuracyChartInstance.destroy();
+        }
+
+        const ctx = document.getElementById('accuracy-chart').getContext('2d');
+
+        /**
+         * Chart.js: librería JavaScript para gráficas interactivas
+         * 
+         * type: 'bar' → gráfica de barras verticales
+         * data.labels → etiquetas del eje X
+         * data.datasets → series de datos a graficar
+         * options → configuración visual del chart
+         */
+        accuracyChartInstance = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Regresión Logística', 'Red Neuronal (MLP)'],
+            datasets: [{
+              label: 'Accuracy (%)',
+              data: [lr.accuracy_pct.toFixed(2), nn.accuracy_pct.toFixed(2)],
+              backgroundColor: [
+                'rgba(79, 156, 249, 0.4)',   // Azul para LR
+                'rgba(124, 58, 237, 0.4)'    // Púrpura para NN
+              ],
+              borderColor: ['#4f9cf9', '#7c3aed'],
+              borderWidth: 2,
+              borderRadius: 6,
+              borderSkipped: false
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },  // Sin leyenda (solo hay 1 dataset)
+              tooltip: {
+                callbacks: {
+                  // Personaliza el tooltip para mostrar el símbolo %
+                  label: (ctx) => ` ${ctx.raw}%`
+                }
+              }
+            },
+            scales: {
+              y: {
+                min: 85,        // El eje Y empieza en 85% para ver mejor las diferencias
+                max: 100,
+                ticks: {
+                  color: '#64748b',
+                  callback: (v) => v + '%'
+                },
+                grid: { color: '#1e2d45' }
+              },
+              x: {
+                ticks: { color: '#64748b' },
+                grid: { display: false }
+              }
             }
           }
-        },
-        scales: {
-          y: {
-            min: 85,        // El eje Y empieza en 85% para ver mejor las diferencias
-            max: 100,
-            ticks: {
-              color: '#64748b',
-              callback: (v) => v + '%'
-            },
-            grid: { color: '#1e2d45' }
-          },
-          x: {
-            ticks: { color: '#64748b' },
-            grid: { display: false }
-          }
+        });
+
+        // --- 3. Matrices de confusión ---
+        renderConfusionMatrix('cm-lr', lr.confusion_matrix, classNames, 'Regresión Logística');
+        renderConfusionMatrix('cm-nn', nn.confusion_matrix, classNames, 'Red Neuronal');
+
+        // Generar interpretación dinámica con los valores REALES de las métricas
+        buildInterpretation(lr, nn, classNames);
+
+        metricsLoaded = true;
+
+        if (!metricsVisible) {
+          document.getElementById('metrics-section').style.display = 'block';
+          metricsVisible = true;
+          document.getElementById('metrics-btn-icon').textContent = '🙈';
+          document.getElementById('metrics-btn-text').textContent = 'Ocultar Métricas';
         }
+
+      } catch (err) {
+        showError('metrics-error', `❌ ${err.message}. ¿Está corriendo el servidor Flask?`);
+      } finally {
+        setLoading('metrics', false);
       }
-    });
-    
-    // --- 3. Matrices de confusión ---
-    renderConfusionMatrix('cm-lr', lr.confusion_matrix, classNames, 'Regresión Logística');
-    renderConfusionMatrix('cm-nn', nn.confusion_matrix, classNames, 'Red Neuronal');
-
-    // Generar interpretación dinámica con los valores REALES de las métricas
-    buildInterpretation(lr, nn, classNames);
-
-    metricsLoaded = true;
-    
-    if (!metricsVisible) {
-      document.getElementById('metrics-section').style.display = 'block';
-      metricsVisible = true;
-      document.getElementById('metrics-btn-icon').textContent = '🙈';
-      document.getElementById('metrics-btn-text').textContent = 'Ocultar Métricas';
     }
-    
-  } catch (err) {
-    showError('metrics-error', `❌ ${err.message}. ¿Está corriendo el servidor Flask?`);
-  } finally {
-    setLoading('metrics', false);
-  }
-}
 
-/**
- * renderConfusionMatrix(containerId, matrix, classNames)
- * -------------------------------------------------------
- * Renderiza una matriz de confusión como tabla visual tipo heatmap.
- * 
- * CÓMO FUNCIONA EL HEATMAP:
- * - Cada celda tiene un color basado en su valor
- * - Diagonal principal (i === j): verde (aciertos)
- * - Fuera de diagonal con valor > 0: naranja/rojo (errores)
- * - Ceros: gris oscuro
- * 
- * DINÁMICO: funciona para cualquier número de clases.
- * Si mañana hay 5 clases, renderiza una matriz 5x5.
- * 
- * @param {string} containerId - ID del div contenedor
- * @param {number[][]} matrix  - Matriz cuadrada de NxN
- * @param {string[]} classNames - Nombres de las clases
- */
-function renderConfusionMatrix(containerId, matrix, classNames) {
-  const maxVal = Math.max(...matrix.flat());  // Valor máximo para escalar colores
-  const n = classNames.length;
-  
-  let html = `
+    /**
+     * renderConfusionMatrix(containerId, matrix, classNames)
+     * -------------------------------------------------------
+     * Renderiza una matriz de confusión como tabla visual tipo heatmap.
+     * 
+     * CÓMO FUNCIONA EL HEATMAP:
+     * - Cada celda tiene un color basado en su valor
+     * - Diagonal principal (i === j): verde (aciertos)
+     * - Fuera de diagonal con valor > 0: naranja/rojo (errores)
+     * - Ceros: gris oscuro
+     * 
+     * DINÁMICO: funciona para cualquier número de clases.
+     * Si mañana hay 5 clases, renderiza una matriz 5x5.
+     * 
+     * @param {string} containerId - ID del div contenedor
+     * @param {number[][]} matrix  - Matriz cuadrada de NxN
+     * @param {string[]} classNames - Nombres de las clases
+     */
+    function renderConfusionMatrix(containerId, matrix, classNames) {
+      const maxVal = Math.max(...matrix.flat());  // Valor máximo para escalar colores
+      const n = classNames.length;
+
+      let html = `
     <table class="confusion-matrix">
       <thead>
         <tr>
           <th style="text-align:left; color:var(--text-muted); font-size:9px;">Real ↓ / Pred →</th>`;
-  
-  // Encabezados de columnas (clases predichas)
-  for (const cls of classNames) {
-    html += `<th style="color:${getClassColor(cls)}">${cls.substring(0,3).toUpperCase()}</th>`;
-  }
-  html += '</tr></thead><tbody>';
-  
-  // Filas de la matriz
-  for (let i = 0; i < n; i++) {
-    html += `<tr>
-      <th style="text-align:left; color:${getClassColor(classNames[i])}">${classNames[i].substring(0,6)}</th>`;
-    
-    for (let j = 0; j < n; j++) {
-      const val = matrix[i][j];
-      
-      // Asignamos clase CSS según si es diagonal o error
-      let cellClass = '';
-      if (val === 0) {
-        cellClass = 'cm-zero';
-      } else if (i === j) {
-        cellClass = 'cm-correct';  // Diagonal = acierto
-      } else if (val <= maxVal * 0.3) {
-        cellClass = 'cm-error-low';  // Error pequeño
-      } else {
-        cellClass = 'cm-error-mid';  // Error grande
+
+      // Encabezados de columnas (clases predichas)
+      for (const cls of classNames) {
+        html += `<th style="color:${getClassColor(cls)}">${cls.substring(0, 3).toUpperCase()}</th>`;
       }
-      
-      // title="" → tooltip al hacer hover
-      html += `<td class="${cellClass}" title="${classNames[i]} real → ${classNames[j]} predicho: ${val}">${val}</td>`;
-    }
-    html += '</tr>';
-  }
-  
-  html += `</tbody></table>
+      html += '</tr></thead><tbody>';
+
+      // Filas de la matriz
+      for (let i = 0; i < n; i++) {
+        html += `<tr>
+      <th style="text-align:left; color:${getClassColor(classNames[i])}">${classNames[i].substring(0, 6)}</th>`;
+
+        for (let j = 0; j < n; j++) {
+          const val = matrix[i][j];
+
+          // Asignamos clase CSS según si es diagonal o error
+          let cellClass = '';
+          if (val === 0) {
+            cellClass = 'cm-zero';
+          } else if (i === j) {
+            cellClass = 'cm-correct';  // Diagonal = acierto
+          } else if (val <= maxVal * 0.3) {
+            cellClass = 'cm-error-low';  // Error pequeño
+          } else {
+            cellClass = 'cm-error-mid';  // Error grande
+          }
+
+          // title="" → tooltip al hacer hover
+          html += `<td class="${cellClass}" title="${classNames[i]} real → ${classNames[j]} predicho: ${val}">${val}</td>`;
+        }
+        html += '</tr>';
+      }
+
+      html += `</tbody></table>
     <div class="cm-legend">
       <div class="cm-legend-item"><div class="cm-legend-dot" style="background:rgba(52,211,153,0.4)"></div> Aciertos (diagonal)</div>
       <div class="cm-legend-item"><div class="cm-legend-dot" style="background:rgba(251,146,60,0.3)"></div> Errores</div>
     </div>`;
-  
-  document.getElementById(containerId).innerHTML = html;
-}
 
-// ============================================================================
-// UTILIDADES DE UI
-// ============================================================================
-
-/**
- * setLoading(section, active)
- * ---------------------------
- * Muestra/oculta el spinner de carga y deshabilita el botón.
- */
-function setLoading(section, active) {
-  const loadingEl = document.getElementById(`${section}-loading`);
-  const btnMap = { predict: 'btn-predict', batch: 'btn-batch', metrics: null };
-  
-  if (loadingEl) loadingEl.classList.toggle('hidden', !active);
-  
-  const btnId = btnMap[section];
-  if (btnId) {
-    const btn = document.getElementById(btnId);
-    if (btn) btn.disabled = active;
-  }
-}
-
-function showError(id, msg) {
-  const el = document.getElementById(id);
-  if (el) { el.textContent = msg; el.classList.remove('hidden'); }
-}
-
-function hideElement(id) {
-  const el = document.getElementById(id);
-  if (el) el.classList.add('hidden');
-}
-
-// ============================================================================
-// CSV — CARGA, PARSEO, CLASIFICACIÓN Y VISUALIZACIÓN
-// ============================================================================
-
-let csvData     = [];   // filas parseadas del CSV
-let csvResults  = null; // respuesta de /predict_batch
-let gridVisible = false;
-let moreVisible = false;
-let matricesVisible = false;
-let csvAccChart = null; // Chart.js para accuracy del CSV
-
-// ── Drag & drop ──────────────────────────────────────────────
-function handleDragOver(e)  { e.preventDefault(); document.getElementById('upload-zone').classList.add('dragover'); }
-function handleDragLeave(e) { document.getElementById('upload-zone').classList.remove('dragover'); }
-function handleDrop(e)      { e.preventDefault(); document.getElementById('upload-zone').classList.remove('dragover'); const f=e.dataTransfer.files[0]; if(f) processFile(f); }
-function handleFileSelect(e){ const f=e.target.files[0]; if(f) processFile(f); }
-
-// ── Procesar archivo ─────────────────────────────────────────
-function processFile(file) {
-  if (!file.name.toLowerCase().endsWith('.csv')) { showCSVError('El archivo debe tener extensión .csv'); return; }
-  const reader = new FileReader();
-  reader.onload = e => {
-    const result = parseCSV(e.target.result);
-    if (result.error) { showCSVError(result.error); return; }
-    csvData = result.rows; csvResults = null;
-    gridVisible = moreVisible = matricesVisible = false;
-
-    document.getElementById('file-name-display').textContent = file.name;
-    document.getElementById('file-meta-display').textContent =
-      `${csvData.length} filas · ${(file.size/1024).toFixed(1)} KB · leído en el navegador`;
-    document.getElementById('upload-zone').classList.add('loaded');
-    document.getElementById('file-info').classList.remove('hidden');
-    document.getElementById('csv-parse-error').classList.add('hidden');
-    showPrePanel();
-  };
-  reader.onerror = () => showCSVError('No se pudo leer el archivo.');
-  reader.readAsText(file);
-}
-
-// ── Parser CSV ───────────────────────────────────────────────
-function parseCSV(text) {
-  const lines = text.replace(/\r\n/g,'\n').replace(/\r/g,'\n').trim().split('\n').filter(l=>l.trim());
-  if (!lines.length) return { rows:[], error:'El archivo está vacío.' };
-  const sep   = lines[0].includes(';') ? ';' : ',';
-  const clean = s => s.trim().replace(/^["']|["']$/g,'').trim();
-  const isHeader = isNaN(parseFloat(clean(lines[0].split(sep)[0])));
-  const dataLines = isHeader ? lines.slice(1) : lines;
-  if (!dataLines.length) return { rows:[], error:'El archivo solo tiene encabezado.' };
-  const rows=[], errors=[];
-  dataLines.forEach((line,i) => {
-    if (!line.trim()) return;
-    const parts = line.split(sep).map(clean);
-    const nums  = parts.slice(0,4).map(v=>parseFloat(v));
-    if (nums.length<4 || nums.some(v=>isNaN(v))) { errors.push(`Línea ${i+(isHeader?2:1)} inválida`); return; }
-    let rc = null;
-    if (parts[4]!==undefined && parts[4]!=='') {
-      rc = parts[4].toLowerCase().replace(/^iris-?/,'').replace(/\s+/g,'');
-      if(rc==='0') rc='setosa'; if(rc==='1') rc='versicolor'; if(rc==='2') rc='virginica';
+      document.getElementById(containerId).innerHTML = html;
     }
-    rows.push({ sepal_length:nums[0], sepal_width:nums[1], petal_length:nums[2], petal_width:nums[3],
-                _row:i+(isHeader?2:1), _real_class:rc });
-  });
-  if (!rows.length) return { rows:[], error:`No se leyó ninguna fila válida. ${errors[0]||''}` };
-  return { rows, error:null };
-}
 
-// ── Panel pre-clasificación ──────────────────────────────────
-function showPrePanel() {
-  const hasClass = csvData.length && csvData[0]._real_class !== null;
-  const counts={};
-  if (hasClass) csvData.forEach(r=>{ const k=r._real_class||'?'; counts[k]=(counts[k]||0)+1; });
-  let html = `
+    // ============================================================================
+    // UTILIDADES DE UI
+    // ============================================================================
+
+    /**
+     * setLoading(section, active)
+     * ---------------------------
+     * Muestra/oculta el spinner de carga y deshabilita el botón.
+     */
+    function setLoading(section, active) {
+      const loadingEl = document.getElementById(`${section}-loading`);
+      const btnMap = { predict: 'btn-predict', batch: 'btn-batch', metrics: null };
+
+      if (loadingEl) loadingEl.classList.toggle('hidden', !active);
+
+      const btnId = btnMap[section];
+      if (btnId) {
+        const btn = document.getElementById(btnId);
+        if (btn) btn.disabled = active;
+      }
+    }
+
+    function showError(id, msg) {
+      const el = document.getElementById(id);
+      if (el) { el.textContent = msg; el.classList.remove('hidden'); }
+    }
+
+    function hideElement(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('hidden');
+    }
+
+    // ============================================================================
+    // CSV — CARGA, PARSEO, CLASIFICACIÓN Y VISUALIZACIÓN
+    // ============================================================================
+
+    let csvData = [];   // filas parseadas del CSV
+    let csvResults = null; // respuesta de /predict_batch
+    let gridVisible = false;
+    let moreVisible = false;
+    let matricesVisible = false;
+    let csvAccChart = null; // Chart.js para accuracy del CSV
+
+    // ── Drag & drop ──────────────────────────────────────────────
+    function handleDragOver(e) { e.preventDefault(); document.getElementById('upload-zone').classList.add('dragover'); }
+    function handleDragLeave(e) { document.getElementById('upload-zone').classList.remove('dragover'); }
+    function handleDrop(e) { e.preventDefault(); document.getElementById('upload-zone').classList.remove('dragover'); const f = e.dataTransfer.files[0]; if (f) processFile(f); }
+    function handleFileSelect(e) { const f = e.target.files[0]; if (f) processFile(f); }
+
+    // ── Procesar archivo ─────────────────────────────────────────
+    function processFile(file) {
+      if (!file.name.toLowerCase().endsWith('.csv')) { showCSVError('El archivo debe tener extensión .csv'); return; }
+      const reader = new FileReader();
+      reader.onload = e => {
+        const result = parseCSV(e.target.result);
+        if (result.error) { showCSVError(result.error); return; }
+        csvData = result.rows; csvResults = null;
+        gridVisible = moreVisible = matricesVisible = false;
+
+        document.getElementById('file-name-display').textContent = file.name;
+        document.getElementById('file-meta-display').textContent =
+          `${csvData.length} filas · ${(file.size / 1024).toFixed(1)} KB · leído en el navegador`;
+        document.getElementById('upload-zone').classList.add('loaded');
+        document.getElementById('file-info').classList.remove('hidden');
+        document.getElementById('csv-parse-error').classList.add('hidden');
+        showPrePanel();
+      };
+      reader.onerror = () => showCSVError('No se pudo leer el archivo.');
+      reader.readAsText(file);
+    }
+
+    // ── Parser CSV ───────────────────────────────────────────────
+    function parseCSV(text) {
+      const lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').trim().split('\n').filter(l => l.trim());
+      if (!lines.length) return { rows: [], error: 'El archivo está vacío.' };
+      const sep = lines[0].includes(';') ? ';' : ',';
+      const clean = s => s.trim().replace(/^["']|["']$/g, '').trim();
+      const isHeader = isNaN(parseFloat(clean(lines[0].split(sep)[0])));
+      const dataLines = isHeader ? lines.slice(1) : lines;
+      if (!dataLines.length) return { rows: [], error: 'El archivo solo tiene encabezado.' };
+      const rows = [], errors = [];
+      dataLines.forEach((line, i) => {
+        if (!line.trim()) return;
+        const parts = line.split(sep).map(clean);
+        const nums = parts.slice(0, 4).map(v => parseFloat(v));
+        if (nums.length < 4 || nums.some(v => isNaN(v))) { errors.push(`Línea ${i + (isHeader ? 2 : 1)} inválida`); return; }
+        let rc = null;
+        if (parts[4] !== undefined && parts[4] !== '') {
+          rc = parts[4].toLowerCase().replace(/^iris-?/, '').replace(/\s+/g, '');
+          if (rc === '0') rc = 'setosa'; if (rc === '1') rc = 'versicolor'; if (rc === '2') rc = 'virginica';
+        }
+        rows.push({
+          sepal_length: nums[0], sepal_width: nums[1], petal_length: nums[2], petal_width: nums[3],
+          _row: i + (isHeader ? 2 : 1), _real_class: rc
+        });
+      });
+      if (!rows.length) return { rows: [], error: `No se leyó ninguna fila válida. ${errors[0] || ''}` };
+      return { rows, error: null };
+    }
+
+    // ── Panel pre-clasificación ──────────────────────────────────
+    function showPrePanel() {
+      const hasClass = csvData.length && csvData[0]._real_class !== null;
+      const counts = {};
+      if (hasClass) csvData.forEach(r => { const k = r._real_class || '?'; counts[k] = (counts[k] || 0) + 1; });
+      let html = `
     <div class="csv-stat-item"><span class="csv-stat-value">${csvData.length}</span><span class="csv-stat-label">Filas</span></div>
     <div class="csv-stat-item"><span class="csv-stat-value">4</span><span class="csv-stat-label">Features</span></div>
-    <div class="csv-stat-item"><span class="csv-stat-value">${hasClass?'Sí':'No'}</span><span class="csv-stat-label">Columna clase</span></div>`;
-  if (hasClass) Object.entries(counts).forEach(([k,v])=>{
-    html+=`<div class="csv-stat-item"><span class="csv-stat-value" style="color:var(--${k})">${v}</span><span class="csv-stat-label">${k}</span></div>`;
-  });
-  document.getElementById('csv-stats-row').innerHTML = html;
-  document.getElementById('csv-results-panel').classList.add('hidden');
-  document.getElementById('csv-pre-panel').classList.remove('hidden');
-}
+    <div class="csv-stat-item"><span class="csv-stat-value">${hasClass ? 'Sí' : 'No'}</span><span class="csv-stat-label">Columna clase</span></div>`;
+      if (hasClass) Object.entries(counts).forEach(([k, v]) => {
+        html += `<div class="csv-stat-item"><span class="csv-stat-value" style="color:var(--${k})">${v}</span><span class="csv-stat-label">${k}</span></div>`;
+      });
+      document.getElementById('csv-stats-row').innerHTML = html;
+      document.getElementById('csv-results-panel').classList.add('hidden');
+      document.getElementById('csv-pre-panel').classList.remove('hidden');
+    }
 
-// ── Clasificar todo el CSV ───────────────────────────────────
-async function predictCSVBatch() {
-  if (!csvData.length) return;
-  ['csv-batch-progress','csv-batch-progress2'].forEach(id=>{ const el=document.getElementById(id); if(el){el.classList.remove('hidden');el.style.display='flex';} });
-  ['btn-classify-init','btn-classify-all'].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=true; });
-  try {
-    const resp = await fetch(`${API_URL}/predict_batch`,{
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({data:csvData.map(r=>[r.sepal_length,r.sepal_width,r.petal_length,r.petal_width])})
-    });
-    const data = await resp.json();
-    if (!resp.ok) throw new Error(data.error||'Error del servidor');
-    csvResults = data; gridVisible=false; moreVisible=false; matricesVisible=false;
+    // ── Clasificar todo el CSV ───────────────────────────────────
+    async function predictCSVBatch() {
+      if (!csvData.length) return;
+      ['csv-batch-progress', 'csv-batch-progress2'].forEach(id => { const el = document.getElementById(id); if (el) { el.classList.remove('hidden'); el.style.display = 'flex'; } });
+      ['btn-classify-init', 'btn-classify-all'].forEach(id => { const el = document.getElementById(id); if (el) el.disabled = true; });
+      try {
+        const resp = await fetch(`${API_URL}/predict_batch`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ data: csvData.map(r => [r.sepal_length, r.sepal_width, r.petal_length, r.petal_width]) })
+        });
+        const data = await resp.json();
+        if (!resp.ok) throw new Error(data.error || 'Error del servidor');
+        csvResults = data; gridVisible = false; moreVisible = false; matricesVisible = false;
 
-    document.getElementById('csv-pre-panel').classList.add('hidden');
-    document.getElementById('csv-results-panel').classList.remove('hidden');
+        document.getElementById('csv-pre-panel').classList.add('hidden');
+        document.getElementById('csv-results-panel').classList.remove('hidden');
 
-    // Reiniciar paneles secundarios
-    ['csv-rows-more','csv-flower-grid','csv-matrices-panel'].forEach(id=>{
-      const el=document.getElementById(id); if(el){el.innerHTML='';el.classList.add('hidden');}
-    });
-    document.getElementById('csv-flower-grid').innerHTML='';
+        // Reiniciar paneles secundarios
+        ['csv-rows-more', 'csv-flower-grid', 'csv-matrices-panel'].forEach(id => {
+          const el = document.getElementById(id); if (el) { el.innerHTML = ''; el.classList.add('hidden'); }
+        });
+        document.getElementById('csv-flower-grid').innerHTML = '';
 
-    renderCSVSummary(data);
-    renderCSVPreview10(data);
+        renderCSVSummary(data);
+        renderCSVPreview10(data);
 
-    // Mostrar botones relevantes
-    document.getElementById('btn-classify-all').style.display='inline-flex';
-    document.getElementById('btn-show-all').style.display='inline-flex';
-    document.getElementById('btn-show-matrices').style.display='inline-flex';
-    const morBtn = document.getElementById('btn-show-more');
-    morBtn.style.display = data.total > 10 ? 'inline-flex' : 'none';
+        // Mostrar botones relevantes
+        document.getElementById('btn-classify-all').style.display = 'inline-flex';
+        document.getElementById('btn-show-all').style.display = 'inline-flex';
+        document.getElementById('btn-show-matrices').style.display = 'inline-flex';
+        const morBtn = document.getElementById('btn-show-more');
+        morBtn.style.display = data.total > 10 ? 'inline-flex' : 'none';
 
-    // Reset button texts
-    document.getElementById('btn-show-all').innerHTML='🌸 Mostrar todos';
-    document.getElementById('btn-show-matrices').innerHTML='📊 Ver matrices y gráficas';
-    if(data.total>10) document.getElementById('btn-show-more').innerHTML='📋 Ver más resultados';
+        // Reset button texts
+        document.getElementById('btn-show-all').innerHTML = '🌸 Mostrar todos';
+        document.getElementById('btn-show-matrices').innerHTML = '📊 Ver matrices y gráficas';
+        if (data.total > 10) document.getElementById('btn-show-more').innerHTML = '📋 Ver más resultados';
 
-    document.getElementById('csv-results-panel').scrollIntoView({behavior:'smooth',block:'start'});
-  } catch(err) {
-    showCSVError(err.message+'. ¿Está corriendo el servidor Flask?');
-  } finally {
-    ['csv-batch-progress','csv-batch-progress2'].forEach(id=>{ const el=document.getElementById(id); if(el) el.style.display='none'; });
-    ['btn-classify-init','btn-classify-all'].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=false; });
-  }
-}
+        document.getElementById('csv-results-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (err) {
+        showCSVError(err.message + '. ¿Está corriendo el servidor Flask?');
+      } finally {
+        ['csv-batch-progress', 'csv-batch-progress2'].forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+        ['btn-classify-init', 'btn-classify-all'].forEach(id => { const el = document.getElementById(id); if (el) el.disabled = false; });
+      }
+    }
 
-// ── Resumen general (tarjetas grandes) ──────────────────────
-function renderCSVSummary(data) {
-  const hasClass = csvData[0]._real_class !== null;
-  const total = data.total;
-  let lrC=0, nnC=0;
-  if (hasClass) data.predictions.forEach((p,i)=>{
-    const r=csvData[i]._real_class;
-    if(r&&p.logistic_regression.class===r) lrC++;
-    if(r&&p.neural_network.class===r) nnC++;
-  });
-  const dist={setosa:0,versicolor:0,virginica:0};
-  data.predictions.forEach(p=>{ const nc=p.neural_network.class; if(dist[nc]!==undefined) dist[nc]++; });
+    // ── Resumen general (tarjetas grandes) ──────────────────────
+    function renderCSVSummary(data) {
+      const hasClass = csvData[0]._real_class !== null;
+      const total = data.total;
+      let lrC = 0, nnC = 0;
+      if (hasClass) data.predictions.forEach((p, i) => {
+        const r = csvData[i]._real_class;
+        if (r && p.logistic_regression.class === r) lrC++;
+        if (r && p.neural_network.class === r) nnC++;
+      });
+      const dist = { setosa: 0, versicolor: 0, virginica: 0 };
+      data.predictions.forEach(p => { const nc = p.neural_network.class; if (dist[nc] !== undefined) dist[nc]++; });
 
-  let html = `<div class="csv-summary-card"><div class="csv-sv" style="color:var(--text)">${total}</div><div class="csv-sl">Flores procesadas</div></div>`;
-  if (hasClass) {
-    html += `
+      let html = `<div class="csv-summary-card"><div class="csv-sv" style="color:var(--text)">${total}</div><div class="csv-sl">Flores procesadas</div></div>`;
+      if (hasClass) {
+        html += `
     <div class="csv-summary-card" style="border-color:rgba(16,185,129,.3)">
-      <div class="csv-sv" style="color:var(--accent)">${((lrC/total)*100).toFixed(1)}%</div>
+      <div class="csv-sv" style="color:var(--accent)">${((lrC / total) * 100).toFixed(1)}%</div>
       <div class="csv-sl">Accuracy · Reg. Logística</div>
       <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:4px;">${lrC}/${total} correctas</div>
     </div>
     <div class="csv-summary-card" style="border-color:rgba(217,119,6,.3)">
-      <div class="csv-sv" style="color:var(--accent2)">${((nnC/total)*100).toFixed(1)}%</div>
+      <div class="csv-sv" style="color:var(--accent2)">${((nnC / total) * 100).toFixed(1)}%</div>
       <div class="csv-sl">Accuracy · Red Neuronal</div>
       <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:4px;">${nnC}/${total} correctas</div>
     </div>`;
-  }
-  html += `<div class="csv-summary-card">
+      }
+      html += `<div class="csv-summary-card">
     <div style="display:flex;flex-direction:column;gap:7px;">
-      ${Object.entries(dist).map(([cls,n])=>`
+      ${Object.entries(dist).map(([cls, n]) => `
         <div style="display:flex;align-items:center;gap:8px;">
           <span style="font-size:10px;font-family:var(--font-mono);color:var(--${cls});min-width:76px;text-transform:capitalize;">${cls}</span>
           <div style="flex:1;height:5px;background:var(--surface);border-radius:100px;overflow:hidden;">
-            <div style="width:${(n/total*100).toFixed(0)}%;height:100%;background:var(--${cls});border-radius:100px;"></div>
+            <div style="width:${(n / total * 100).toFixed(0)}%;height:100%;background:var(--${cls});border-radius:100px;"></div>
           </div>
           <span style="font-family:var(--font-mono);font-size:10px;color:var(--muted);min-width:22px;text-align:right;">${n}</span>
         </div>`).join('')}
     </div>
     <div class="csv-sl" style="margin-top:10px;">Distribución predicha (NN)</div>
   </div>`;
-  document.getElementById('csv-summary-cards').innerHTML = html;
-}
+      document.getElementById('csv-summary-cards').innerHTML = html;
+    }
 
-// ── Tabla de filas (reutilizable) ────────────────────────────
-function buildRowsTable(predictions, fromIdx, toIdx, hasClass) {
-  const rows = predictions.slice(fromIdx, toIdx).map((pred,j) => {
-    const i   = fromIdx + j;
-    const row = csvData[i];
-    const lrC = pred.logistic_regression.class;
-    const nnC = pred.neural_network.class;
-    const lrP = pred.logistic_regression.probabilities[lrC].toFixed(1);
-    const nnP = pred.neural_network.probabilities[nnC].toFixed(1);
-    const real = row._real_class;
-    const lrHit = hasClass&&real ? lrC===real : null;
-    const nnHit = hasClass&&real ? nnC===real : null;
-    return `<tr style="background:var(--surface2);">
+    // ── Tabla de filas (reutilizable) ────────────────────────────
+    function buildRowsTable(predictions, fromIdx, toIdx, hasClass) {
+      const rows = predictions.slice(fromIdx, toIdx).map((pred, j) => {
+        const i = fromIdx + j;
+        const row = csvData[i];
+        const lrC = pred.logistic_regression.class;
+        const nnC = pred.neural_network.class;
+        const lrP = pred.logistic_regression.probabilities[lrC].toFixed(1);
+        const nnP = pred.neural_network.probabilities[nnC].toFixed(1);
+        const real = row._real_class;
+        const lrHit = hasClass && real ? lrC === real : null;
+        const nnHit = hasClass && real ? nnC === real : null;
+        return `<tr style="background:var(--surface2);">
       <td style="padding:9px 10px;font-family:var(--font-mono);font-size:11px;color:var(--muted);border-radius:6px 0 0 6px;">#${row._row}</td>
       <td style="padding:9px 10px;font-family:var(--font-mono);font-size:11px;color:var(--muted);">${row.sepal_length}, ${row.sepal_width}, ${row.petal_length}, ${row.petal_width}</td>
-      ${hasClass&&real?`<td style="padding:9px 10px;text-align:center;"><span class="mini-badge species-badge ${real}" style="font-size:10px;padding:2px 8px;">${real}</span></td>`:''}
+      ${hasClass && real ? `<td style="padding:9px 10px;text-align:center;"><span class="mini-badge species-badge ${real}" style="font-size:10px;padding:2px 8px;">${real}</span></td>` : ''}
       <td style="padding:9px 10px;text-align:center;">
         <span class="mini-badge species-badge ${lrC}" style="font-size:10px;padding:2px 8px;">${lrC}</span>
         <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted);margin-top:2px;">${lrP}%</div>
-        ${lrHit!==null?`<div style="font-size:10px;">${lrHit?'✅':'❌'}</div>`:''}
+        ${lrHit !== null ? `<div style="font-size:10px;">${lrHit ? '✅' : '❌'}</div>` : ''}
       </td>
       <td style="padding:9px 10px;text-align:center;border-radius:0 6px 6px 0;">
         <span class="mini-badge species-badge ${nnC}" style="font-size:10px;padding:2px 8px;">${nnC}</span>
         <div style="font-family:var(--font-mono);font-size:9px;color:var(--muted);margin-top:2px;">${nnP}%</div>
-        ${nnHit!==null?`<div style="font-size:10px;">${nnHit?'✅':'❌'}</div>`:''}
+        ${nnHit !== null ? `<div style="font-size:10px;">${nnHit ? '✅' : '❌'}</div>` : ''}
       </td>
     </tr>`;
-  }).join('');
-  const hasReal = hasClass;
-  return `<div style="overflow-x:auto;border-radius:8px;border:1px solid var(--border);">
+      }).join('');
+      const hasReal = hasClass;
+      return `<div style="overflow-x:auto;border-radius:8px;border:1px solid var(--border);">
     <table style="width:100%;border-collapse:separate;border-spacing:0 3px;min-width:560px;">
       <thead style="position:sticky;top:0;background:var(--surface);z-index:1;">
         <tr style="font-family:var(--font-mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">
           <th style="padding:10px;text-align:left;">Fila</th>
           <th style="padding:10px;text-align:left;">Mediciones</th>
-          ${hasReal?'<th style="padding:10px;text-align:center;">Clase real</th>':''}
+          ${hasReal ? '<th style="padding:10px;text-align:center;">Clase real</th>' : ''}
           <th style="padding:10px;text-align:center;">Reg. Logística</th>
           <th style="padding:10px;text-align:center;">Red Neuronal</th>
         </tr>
@@ -2334,144 +2887,144 @@ function buildRowsTable(predictions, fromIdx, toIdx, hasClass) {
       <tbody>${rows}</tbody>
     </table>
   </div>`;
-}
+    }
 
-// ── Nivel 1: primeras 10 filas ───────────────────────────────
-function renderCSVPreview10(data) {
-  const hasClass = csvData[0]._real_class !== null;
-  const n = Math.min(10, data.total);
-  document.getElementById('csv-preview-10').innerHTML =
-    `<p style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">
+    // ── Nivel 1: primeras 10 filas ───────────────────────────────
+    function renderCSVPreview10(data) {
+      const hasClass = csvData[0]._real_class !== null;
+      const n = Math.min(10, data.total);
+      document.getElementById('csv-preview-10').innerHTML =
+        `<p style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">
       Primeros ${n} resultados de ${data.total}
     </p>` + buildRowsTable(data.predictions, 0, n, hasClass);
-}
+    }
 
-// ── Nivel 2: "Ver más" (filas 11-50) ────────────────────────
-function showCSVMore() {
-  moreVisible = !moreVisible;
-  const el  = document.getElementById('csv-rows-more');
-  const btn = document.getElementById('btn-show-more');
-  if (moreVisible) {
-    const hasClass = csvData[0]._real_class !== null;
-    const to = Math.min(50, csvResults.total);
-    el.innerHTML =
-      `<p style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;">
+    // ── Nivel 2: "Ver más" (filas 11-50) ────────────────────────
+    function showCSVMore() {
+      moreVisible = !moreVisible;
+      const el = document.getElementById('csv-rows-more');
+      const btn = document.getElementById('btn-show-more');
+      if (moreVisible) {
+        const hasClass = csvData[0]._real_class !== null;
+        const to = Math.min(50, csvResults.total);
+        el.innerHTML =
+          `<p style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:16px 0 8px;">
         Filas 11 – ${to}
       </p>` + buildRowsTable(csvResults.predictions, 10, to, hasClass);
-    el.classList.remove('hidden');
-    btn.innerHTML = '📋 Ocultar';
-    setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),100);
-  } else {
-    el.classList.add('hidden');
-    btn.innerHTML = '📋 Ver más resultados';
-  }
-}
+        el.classList.remove('hidden');
+        btn.innerHTML = '📋 Ocultar';
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      } else {
+        el.classList.add('hidden');
+        btn.innerHTML = '📋 Ver más resultados';
+      }
+    }
 
-// ── Nivel 3: galería completa ────────────────────────────────
-function toggleCSVGrid() {
-  if (!csvResults) return;
-  gridVisible = !gridVisible;
-  const grid = document.getElementById('csv-flower-grid');
-  const btn  = document.getElementById('btn-show-all');
-  btn.innerHTML = gridVisible ? '🙈 Ocultar galería' : '🌸 Mostrar todos';
-  if (gridVisible) {
-    if (!grid.innerHTML) renderFlowerGrid();
-    grid.classList.remove('hidden');
-    setTimeout(()=>grid.scrollIntoView({behavior:'smooth',block:'start'}),120);
-  } else {
-    grid.classList.add('hidden');
-  }
-}
+    // ── Nivel 3: galería completa ────────────────────────────────
+    function toggleCSVGrid() {
+      if (!csvResults) return;
+      gridVisible = !gridVisible;
+      const grid = document.getElementById('csv-flower-grid');
+      const btn = document.getElementById('btn-show-all');
+      btn.innerHTML = gridVisible ? '🙈 Ocultar galería' : '🌸 Mostrar todos';
+      if (gridVisible) {
+        if (!grid.innerHTML) renderFlowerGrid();
+        grid.classList.remove('hidden');
+        setTimeout(() => grid.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+      } else {
+        grid.classList.add('hidden');
+      }
+    }
 
-function renderFlowerGrid() {
-  const hasClass = csvData[0]._real_class !== null;
-  const emojis = {setosa:'🌿',versicolor:'🌼',virginica:'🌺'};
-  const cards = csvResults.predictions.map((pred,i) => {
-    const row = csvData[i];
-    const nnC = pred.neural_network.class;
-    const lrC = pred.logistic_regression.class;
-    const real = row._real_class;
-    const hit  = hasClass&&real ? nnC===real : null;
-    const hc   = hit===true?'correct':hit===false?'wrong':'';
-    return `
+    function renderFlowerGrid() {
+      const hasClass = csvData[0]._real_class !== null;
+      const emojis = { setosa: '🌿', versicolor: '🌼', virginica: '🌺' };
+      const cards = csvResults.predictions.map((pred, i) => {
+        const row = csvData[i];
+        const nnC = pred.neural_network.class;
+        const lrC = pred.logistic_regression.class;
+        const real = row._real_class;
+        const hit = hasClass && real ? nnC === real : null;
+        const hc = hit === true ? 'correct' : hit === false ? 'wrong' : '';
+        return `
       <div class="flower-card-mini ${hc}" onclick="openFlowerModal(${i})" title="Fila #${row._row} · clic para detalle">
-        ${hit!==null?`<div class="fmini-hit">${hit?'✅':'❌'}</div>`:''}
+        ${hit !== null ? `<div class="fmini-hit">${hit ? '✅' : '❌'}</div>` : ''}
         <img src="/static/img/${nnC}.jpg" alt="${nnC}"
           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="fmini-placeholder" style="display:none">${emojis[nnC]||'🌸'}</div>
+        <div class="fmini-placeholder" style="display:none">${emojis[nnC] || '🌸'}</div>
         <div class="fmini-body">
           <div class="fmini-row">#${row._row}</div>
           <div class="fmini-name" style="color:var(--${nnC})">${nnC}</div>
-          ${lrC!==nnC?'<div style="font-family:var(--font-mono);font-size:9px;color:var(--muted);">LR≠NN</div>':''}
+          ${lrC !== nnC ? '<div style="font-family:var(--font-mono);font-size:9px;color:var(--muted);">LR≠NN</div>' : ''}
         </div>
       </div>`;
-  }).join('');
-  document.getElementById('csv-flower-grid').innerHTML =
-    `<p style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:16px 0 12px;">
+      }).join('');
+      document.getElementById('csv-flower-grid').innerHTML =
+        `<p style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin:16px 0 12px;">
       ${csvResults.total} flores · clic en cualquiera para ver detalle
     </p>
     <div class="flower-grid">${cards}</div>`;
-}
-
-// ── Nivel 4: matrices y gráficas del CSV ─────────────────────
-function toggleCSVMatrices() {
-  matricesVisible = !matricesVisible;
-  const panel = document.getElementById('csv-matrices-panel');
-  const btn   = document.getElementById('btn-show-matrices');
-  btn.innerHTML = matricesVisible ? '📊 Ocultar matrices' : '📊 Ver matrices y gráficas';
-  if (matricesVisible) {
-    if (!panel.innerHTML) renderCSVMatrices();
-    panel.classList.remove('hidden');
-    setTimeout(()=>panel.scrollIntoView({behavior:'smooth',block:'start'}),120);
-  } else {
-    panel.classList.add('hidden');
-  }
-}
-
-/**
- * renderCSVMatrices()
- * -------------------
- * Calcula las matrices de confusión desde los resultados del CSV
- * y las renderiza igual que las matrices del entrenamiento.
- * También muestra una gráfica de barras comparando accuracy LR vs NN
- * calculada sobre ESTE dataset específico subido por el usuario.
- */
-function renderCSVMatrices() {
-  const hasClass  = csvData[0]._real_class !== null;
-  const classNames = ['setosa','versicolor','virginica'];
-  const total      = csvResults.total;
-
-  // Calcular matrices de confusión manualmente desde las predicciones
-  const lrCM = [[0,0,0],[0,0,0],[0,0,0]];
-  const nnCM = [[0,0,0],[0,0,0],[0,0,0]];
-  let lrC=0, nnC=0;
-
-  csvResults.predictions.forEach((pred,i) => {
-    const real  = csvData[i]._real_class;
-    const lrCls = pred.logistic_regression.class;
-    const nnCls = pred.neural_network.class;
-    if (hasClass && real && classNames.includes(real)) {
-      const ri = classNames.indexOf(real);
-      const li = classNames.indexOf(lrCls);
-      const ni = classNames.indexOf(nnCls);
-      if(li>=0) lrCM[ri][li]++;
-      if(ni>=0) nnCM[ri][ni]++;
-      if(lrCls===real) lrC++;
-      if(nnCls===real) nnC++;
     }
-  });
 
-  const lrPct = hasClass ? ((lrC/total)*100).toFixed(2) : null;
-  const nnPct = hasClass ? ((nnC/total)*100).toFixed(2) : null;
+    // ── Nivel 4: matrices y gráficas del CSV ─────────────────────
+    function toggleCSVMatrices() {
+      matricesVisible = !matricesVisible;
+      const panel = document.getElementById('csv-matrices-panel');
+      const btn = document.getElementById('btn-show-matrices');
+      btn.innerHTML = matricesVisible ? '📊 Ocultar matrices' : '📊 Ver matrices y gráficas';
+      if (matricesVisible) {
+        if (!panel.innerHTML) renderCSVMatrices();
+        panel.classList.remove('hidden');
+        setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+      } else {
+        panel.classList.add('hidden');
+      }
+    }
 
-  // Contenedor del panel
-  const panel = document.getElementById('csv-matrices-panel');
+    /**
+     * renderCSVMatrices()
+     * -------------------
+     * Calcula las matrices de confusión desde los resultados del CSV
+     * y las renderiza igual que las matrices del entrenamiento.
+     * También muestra una gráfica de barras comparando accuracy LR vs NN
+     * calculada sobre ESTE dataset específico subido por el usuario.
+     */
+    function renderCSVMatrices() {
+      const hasClass = csvData[0]._real_class !== null;
+      const classNames = ['setosa', 'versicolor', 'virginica'];
+      const total = csvResults.total;
 
-  panel.innerHTML = `
+      // Calcular matrices de confusión manualmente desde las predicciones
+      const lrCM = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+      const nnCM = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+      let lrC = 0, nnC = 0;
+
+      csvResults.predictions.forEach((pred, i) => {
+        const real = csvData[i]._real_class;
+        const lrCls = pred.logistic_regression.class;
+        const nnCls = pred.neural_network.class;
+        if (hasClass && real && classNames.includes(real)) {
+          const ri = classNames.indexOf(real);
+          const li = classNames.indexOf(lrCls);
+          const ni = classNames.indexOf(nnCls);
+          if (li >= 0) lrCM[ri][li]++;
+          if (ni >= 0) nnCM[ri][ni]++;
+          if (lrCls === real) lrC++;
+          if (nnCls === real) nnC++;
+        }
+      });
+
+      const lrPct = hasClass ? ((lrC / total) * 100).toFixed(2) : null;
+      const nnPct = hasClass ? ((nnC / total) * 100).toFixed(2) : null;
+
+      // Contenedor del panel
+      const panel = document.getElementById('csv-matrices-panel');
+
+      panel.innerHTML = `
     <div style="border-top:1px solid var(--border);padding-top:24px;margin-top:8px;">
       <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;">
         Matrices y métricas calculadas sobre tu dataset CSV
-        ${!hasClass?'<span style="color:var(--versicolor);margin-left:8px;">⚠️ El CSV no tenía columna de clase real — matrices no disponibles</span>':''}
+        ${!hasClass ? '<span style="color:var(--versicolor);margin-left:8px;">⚠️ El CSV no tenía columna de clase real — matrices no disponibles</span>' : ''}
       </p>
 
       ${hasClass ? `
@@ -2517,49 +3070,51 @@ function renderCSVMatrices() {
       </div>`}
     </div>`;
 
-  if (hasClass) {
-    // Renderizar las dos matrices
-    renderConfusionMatrix('csv-cm-lr', lrCM, classNames, 'Reg. Logística');
-    renderConfusionMatrix('csv-cm-nn', nnCM, classNames, 'Red Neuronal');
+      if (hasClass) {
+        // Renderizar las dos matrices
+        renderConfusionMatrix('csv-cm-lr', lrCM, classNames, 'Reg. Logística');
+        renderConfusionMatrix('csv-cm-nn', nnCM, classNames, 'Red Neuronal');
 
-    // Gráfica de barras con Chart.js
-    if (csvAccChart) { csvAccChart.destroy(); csvAccChart=null; }
-    const ctx = document.getElementById('csv-accuracy-chart').getContext('2d');
-    csvAccChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Reg. Logística','Red Neuronal (MLP)'],
-        datasets:[{
-          label:'Accuracy (%)',
-          data:[parseFloat(lrPct), parseFloat(nnPct)],
-          backgroundColor:['rgba(16,185,129,.4)','rgba(217,119,6,.4)'],
-          borderColor:['#10b981','#d97706'],
-          borderWidth:2, borderRadius:6, borderSkipped:false
-        }]
-      },
-      options:{
-        responsive:true,
-        plugins:{ legend:{display:false}, tooltip:{callbacks:{label:ctx=>` ${ctx.raw}%`}} },
-        scales:{
-          y:{ min:Math.max(0,Math.min(parseFloat(lrPct),parseFloat(nnPct))-10), max:100,
-              ticks:{color:'#6b7280',callback:v=>v+'%'}, grid:{color:'#252b30'} },
-          x:{ ticks:{color:'#6b7280'}, grid:{display:false} }
-        }
+        // Gráfica de barras con Chart.js
+        if (csvAccChart) { csvAccChart.destroy(); csvAccChart = null; }
+        const ctx = document.getElementById('csv-accuracy-chart').getContext('2d');
+        csvAccChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Reg. Logística', 'Red Neuronal (MLP)'],
+            datasets: [{
+              label: 'Accuracy (%)',
+              data: [parseFloat(lrPct), parseFloat(nnPct)],
+              backgroundColor: ['rgba(16,185,129,.4)', 'rgba(217,119,6,.4)'],
+              borderColor: ['#10b981', '#d97706'],
+              borderWidth: 2, borderRadius: 6, borderSkipped: false
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.raw}%` } } },
+            scales: {
+              y: {
+                min: Math.max(0, Math.min(parseFloat(lrPct), parseFloat(nnPct)) - 10), max: 100,
+                ticks: { color: '#6b7280', callback: v => v + '%' }, grid: { color: '#252b30' }
+              },
+              x: { ticks: { color: '#6b7280' }, grid: { display: false } }
+            }
+          }
+        });
       }
-    });
-  }
-}
+    }
 
-// ── Modal de flor individual ─────────────────────────────────
-function openFlowerModal(i) {
-  const pred    = csvResults.predictions[i];
-  const row     = csvData[i];
-  const lrClass = pred.logistic_regression.class;
-  const nnClass = pred.neural_network.class;
-  const real    = row._real_class;
-  const emojis  = {setosa:'🌿',versicolor:'🌼',virginica:'🌺'};
+    // ── Modal de flor individual ─────────────────────────────────
+    function openFlowerModal(i) {
+      const pred = csvResults.predictions[i];
+      const row = csvData[i];
+      const lrClass = pred.logistic_regression.class;
+      const nnClass = pred.neural_network.class;
+      const real = row._real_class;
+      const emojis = { setosa: '🌿', versicolor: '🌼', virginica: '🌺' };
 
-  const probBars = probs => Object.entries(probs).map(([cls,pct])=>`
+      const probBars = probs => Object.entries(probs).map(([cls, pct]) => `
     <div class="modal-prob-row">
       <div class="modal-prob-label">
         <span style="text-transform:capitalize">${cls}</span>
@@ -2570,19 +3125,19 @@ function openFlowerModal(i) {
       </div>
     </div>`).join('');
 
-  document.getElementById('flower-modal-content').innerHTML = `
+      document.getElementById('flower-modal-content').innerHTML = `
     <img class="modal-flower-img" src="/static/img/${nnClass}.jpg" alt="${nnClass}"
-      onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=font-size:72px;text-align:center;margin-bottom:16px>${emojis[nnClass]||'🌸'}</div>')">
+      onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=font-size:72px;text-align:center;margin-bottom:16px>${emojis[nnClass] || '🌸'}</div>')">
     <div class="modal-species" style="color:var(--${nnClass})">${nnClass}</div>
     <div class="modal-meta">
       Fila #${row._row} &nbsp;·&nbsp; sl:${row.sepal_length} sw:${row.sepal_width} pl:${row.petal_length} pw:${row.petal_width}
-      ${real?`&nbsp;·&nbsp; Clase real: <strong style="color:var(--${real})">${real}</strong>`:''}
+      ${real ? `&nbsp;·&nbsp; Clase real: <strong style="color:var(--${real})">${real}</strong>` : ''}
     </div>
-    ${real?`<div style="margin-bottom:16px;padding:10px 14px;background:var(--surface2);border-radius:8px;font-family:var(--font-mono);font-size:12px;">
-      LR: ${lrClass===real?'✅':'❌'} <span style="color:var(--${lrClass})">${lrClass}</span>
+    ${real ? `<div style="margin-bottom:16px;padding:10px 14px;background:var(--surface2);border-radius:8px;font-family:var(--font-mono);font-size:12px;">
+      LR: ${lrClass === real ? '✅' : '❌'} <span style="color:var(--${lrClass})">${lrClass}</span>
       &nbsp;&nbsp;&nbsp;
-      NN: ${nnClass===real?'✅':'❌'} <span style="color:var(--${nnClass})">${nnClass}</span>
-    </div>`:''}
+      NN: ${nnClass === real ? '✅' : '❌'} <span style="color:var(--${nnClass})">${nnClass}</span>
+    </div>`: ''}
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
       <div>
         <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;">Reg. Logística</div>
@@ -2594,61 +3149,62 @@ function openFlowerModal(i) {
       </div>
     </div>`;
 
-  document.getElementById('flower-modal').classList.remove('hidden');
-  document.body.style.overflow='hidden';
-}
-
-function closeFlowerModal(e) {
-  if (e && e.target!==document.getElementById('flower-modal')) return;
-  document.getElementById('flower-modal').classList.add('hidden');
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown', e=>{
-  if(e.key==='Escape'){document.getElementById('flower-modal').classList.add('hidden');document.body.style.overflow='';}
-});
-
-// ── Limpiar todo ─────────────────────────────────────────────
-function clearCSV() {
-  csvData=[]; csvResults=null; gridVisible=moreVisible=matricesVisible=false;
-  if(csvAccChart){csvAccChart.destroy();csvAccChart=null;}
-  document.getElementById('csv-file-input').value='';
-  document.getElementById('upload-zone').classList.remove('loaded');
-  document.getElementById('file-info').classList.add('hidden');
-  document.getElementById('csv-parse-error').classList.add('hidden');
-  document.getElementById('csv-pre-panel').classList.add('hidden');
-  document.getElementById('csv-results-panel').classList.add('hidden');
-  ['csv-rows-more','csv-flower-grid','csv-matrices-panel'].forEach(id=>{
-    const el=document.getElementById(id); if(el){el.innerHTML='';el.classList.add('hidden');}
-  });
-  document.getElementById('csv-summary-cards').innerHTML='';
-  document.getElementById('csv-preview-10').innerHTML='';
-}
-
-function showCSVError(msg) {
-  const el=document.getElementById('csv-parse-error');
-  el.textContent='❌ '+msg; el.classList.remove('hidden');
-}
-
-// ============================================================================
-// INICIALIZACIÓN AL CARGAR LA PÁGINA
-// ============================================================================
-
-/**
- * Al cargar la página, comprobamos si la API está disponible
- * haciendo una petición al endpoint /health.
- */
-window.addEventListener('load', async () => {
-  try {
-    const res = await fetch(`${API_URL}/health`, { signal: AbortSignal.timeout(3000) });
-    if (res.ok) {
-      console.log('✅ API Flask conectada correctamente');
+      document.getElementById('flower-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
     }
-  } catch {
-    // Si la API no responde, mostramos una advertencia no intrusiva
-    console.warn('⚠️ API Flask no detectada en localhost:5000. Ejecuta: python app.py');
-  }
-});
-</script>
+
+    function closeFlowerModal(e) {
+      if (e && e.target !== document.getElementById('flower-modal')) return;
+      document.getElementById('flower-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') { document.getElementById('flower-modal').classList.add('hidden'); document.body.style.overflow = ''; }
+    });
+
+    // ── Limpiar todo ─────────────────────────────────────────────
+    function clearCSV() {
+      csvData = []; csvResults = null; gridVisible = moreVisible = matricesVisible = false;
+      if (csvAccChart) { csvAccChart.destroy(); csvAccChart = null; }
+      document.getElementById('csv-file-input').value = '';
+      document.getElementById('upload-zone').classList.remove('loaded');
+      document.getElementById('file-info').classList.add('hidden');
+      document.getElementById('csv-parse-error').classList.add('hidden');
+      document.getElementById('csv-pre-panel').classList.add('hidden');
+      document.getElementById('csv-results-panel').classList.add('hidden');
+      ['csv-rows-more', 'csv-flower-grid', 'csv-matrices-panel'].forEach(id => {
+        const el = document.getElementById(id); if (el) { el.innerHTML = ''; el.classList.add('hidden'); }
+      });
+      document.getElementById('csv-summary-cards').innerHTML = '';
+      document.getElementById('csv-preview-10').innerHTML = '';
+    }
+
+    function showCSVError(msg) {
+      const el = document.getElementById('csv-parse-error');
+      el.textContent = '❌ ' + msg; el.classList.remove('hidden');
+    }
+
+    // ============================================================================
+    // INICIALIZACIÓN AL CARGAR LA PÁGINA
+    // ============================================================================
+
+    /**
+     * Al cargar la página, comprobamos si la API está disponible
+     * haciendo una petición al endpoint /health.
+     */
+    window.addEventListener('load', async () => {
+      try {
+        const res = await fetch(`${API_URL}/health`, { signal: AbortSignal.timeout(3000) });
+        if (res.ok) {
+          console.log('✅ API Flask conectada correctamente');
+        }
+      } catch {
+        // Si la API no responde, mostramos una advertencia no intrusiva
+        console.warn('⚠️ API Flask no detectada en localhost:5000. Ejecuta: python app.py');
+      }
+    });
+  </script>
 
 </body>
+
 </html>
