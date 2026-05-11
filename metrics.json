@@ -1,0 +1,62 @@
+{
+  "logistic_regression": {
+    "accuracy": 1.0,
+    "accuracy_pct": 100.0,
+    "confusion_matrix": [
+      [
+        10,
+        0,
+        0
+      ],
+      [
+        0,
+        10,
+        0
+      ],
+      [
+        0,
+        0,
+        10
+      ]
+    ]
+  },
+  "neural_network": {
+    "accuracy": 1.0,
+    "accuracy_pct": 100.0,
+    "confusion_matrix": [
+      [
+        10,
+        0,
+        0
+      ],
+      [
+        0,
+        10,
+        0
+      ],
+      [
+        0,
+        0,
+        10
+      ]
+    ]
+  },
+  "class_names": [
+    "setosa",
+    "versicolor",
+    "virginica"
+  ],
+  "feature_names": [
+    "sepal length (cm)",
+    "sepal width (cm)",
+    "petal length (cm)",
+    "petal width (cm)"
+  ],
+  "dataset_info": {
+    "total_samples": 150,
+    "train_samples": 120,
+    "test_samples": 30,
+    "n_features": 4,
+    "n_classes": 3
+  }
+}

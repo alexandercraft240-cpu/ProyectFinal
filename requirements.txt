@@ -1,0 +1,11 @@
+# PROYECTO IRIS — DEPENDENCIAS PYTHON
+
+# --- MACHINE LEARNING ---
+scikit-learn>=1.3.0   # Modelos ML: LogisticRegression, MLPClassifier, StandardScaler
+numpy>=1.24.0          # Operaciones numéricas y matrices (base de scikit-learn)
+pandas>=2.0.0          # Manipulación y análisis de datos (DataFrames)
+joblib>=1.3.0          # Serializar/guardar modelos entrenados en disco (.pkl)
+
+# --- WEB API ---
+flask>=3.0.0           # Micro-framework web paraa la API
+flask-cors>=4.0.0      # Habilitar CORS para peticiones desde el frontend HTML

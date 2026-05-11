@@ -1,0 +1,877 @@
+/* =====================================================================
+       VARIABLES CSS — Sistema de diseño coherente
+       Definimos todos los colores, espaciados y fuentes en un solo lugar.
+       Cambiar aquí afecta todo el sitio.
+    ====================================================================== */
+:root {
+    --bg: #0a0c0e;
+    /* Negro carbón profundo */
+    --surface: #111416;
+    /* Tarjetas — grafito oscuro */
+    --surface2: #191c1f;
+    /* Tarjetas internas */
+    --border: #252b30;
+    /* Bordes sutiles grafito */
+    --accent: #10b981;
+    /* Esmeralda — color principal */
+    --accent2: #d97706;
+    /* Ámbar dorado — redes neuronales */
+    --setosa: #10b981;
+    /* Verde esmeralda para Setosa */
+    --versicolor: #f59e0b;
+    /* Ámbar para Versicolor */
+    --virginica: #e879f9;
+    /* Fucsia para Virginica */
+    --text: #f1f0ee;
+    /* Blanco cálido */
+    --text-muted: #6b7280;
+    /* Gris medio */
+    --font-title: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --radius: 12px;
+    --shadow: 0 4px 32px rgba(0, 0, 0, 0.7);
+}
+
+/* =====================================================================
+       RESET & BASE
+    ====================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    /* Rejilla de puntos como fondo — da profundidad visual */
+    background-image: radial-gradient(circle, #1e2423 1px, transparent 1px);
+    background-size: 28px 28px;
+}
+
+/* =====================================================================
+       HEADER — Encabezado principal
+    ====================================================================== */
+header {
+    text-align: center;
+    padding: 64px 24px 40px;
+    position: relative;
+}
+
+/* Línea decorativa superior */
+header::before {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    margin: 0 auto 28px;
+    border-radius: 2px;
+}
+
+header .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+}
+
+header h1 {
+    font-family: var(--font-title);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    /* Gradiente en el texto del título */
+    background: linear-gradient(135deg, #f1f0ee 20%, var(--accent) 70%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+}
+
+header p {
+    color: var(--text-muted);
+    font-size: 15px;
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+/* Tags de tecnología en el header */
+.tech-tags {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 24px;
+}
+
+.tech-tag {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* =====================================================================
+       LAYOUT — Grid principal
+    ====================================================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+}
+
+/* =====================================================================
+       TARJETAS (CARDS) — Componente base
+    ====================================================================== */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Línea de color en el borde superior de la tarjeta */
+.card.lr-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+}
+
+.card.nn-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent2);
+}
+
+.card-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text);
+}
+
+/* =====================================================================
+       SECCIONES — Separadores con título
+    ====================================================================== */
+.section {
+    margin-bottom: 48px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.section-number {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.section-title {
+    font-family: var(--font-title);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+/* =====================================================================
+       FORMULARIO — Inputs y botones
+    ====================================================================== */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+input[type="number"],
+textarea {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+input[type="number"]:focus,
+textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+/* =====================================================================
+       BOTONES
+    ====================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent), #059669);
+    color: white;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.btn-purple {
+    background: linear-gradient(135deg, var(--accent2), #b45309);
+    color: white;
+    box-shadow: 0 4px 16px rgba(217, 119, 6, 0.3);
+}
+
+.btn-purple:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(217, 119, 6, 0.4);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* =====================================================================
+       RESULTADO DE PREDICCIÓN — Tarjetas de resultado
+    ====================================================================== */
+#result-section {
+    display: none;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.result-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    position: relative;
+}
+
+.result-model-name {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+/* Badge grande con el nombre de la especie predicha */
+.species-badge {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 100px;
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.species-badge.setosa {
+    background: rgba(52, 211, 153, 0.15);
+    color: var(--setosa);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.species-badge.versicolor {
+    background: rgba(251, 146, 60, 0.15);
+    color: var(--versicolor);
+    border: 1px solid rgba(251, 146, 60, 0.3);
+}
+
+.species-badge.virginica {
+    background: rgba(244, 114, 182, 0.15);
+    color: var(--virginica);
+    border: 1px solid rgba(244, 114, 182, 0.3);
+}
+
+/* Barras de probabilidad */
+.prob-bars {
+    margin-top: 16px;
+}
+
+.prob-row {
+    margin-bottom: 12px;
+}
+
+.prob-label-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    margin-bottom: 5px;
+    text-transform: capitalize;
+}
+
+.prob-bar-track {
+    height: 6px;
+    background: var(--surface);
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.prob-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prob-bar-fill.setosa {
+    background: var(--setosa);
+}
+
+.prob-bar-fill.versicolor {
+    background: var(--versicolor);
+}
+
+.prob-bar-fill.virginica {
+    background: var(--virginica);
+}
+
+/* Imagen de la flor predicha */
+.flower-image-container {
+    margin-top: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+
+/* Sin altura fija → la imagen se muestra completa con su proporción natural */
+.flower-image-container img {
+    width: 100%;
+    height: auto;
+    /* altura automática = imagen completa, sin recorte */
+    display: block;
+    border-radius: 8px;
+}
+
+/* Placeholder si no hay imagen */
+.flower-placeholder {
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.flower-emoji {
+    font-size: 48px;
+}
+
+/* =====================================================================
+       PREDICCIÓN POR LOTES
+    ====================================================================== */
+.batch-hint {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    line-height: 1.8;
+}
+
+.batch-results-grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.batch-result-row {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: center;
+}
+
+.batch-index {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.batch-inputs {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+.batch-pred {
+    text-align: center;
+}
+
+.mini-badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-bottom: 4px;
+}
+
+.mini-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* =====================================================================
+       SECCIÓN DE MÉTRICAS
+    ====================================================================== */
+#metrics-section {
+    display: none;
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.metric-stat {
+    text-align: center;
+    padding: 24px;
+    background: var(--surface2);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.metric-stat .value {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.metric-stat .value.lr-color {
+    color: var(--accent);
+}
+
+.metric-stat .value.nn-color {
+    color: var(--accent2);
+}
+
+.metric-stat .label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* Contenedor de gráficas */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.chart-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+}
+
+.chart-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+
+/* Tabla heatmap para matriz de confusión */
+.confusion-matrix {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 4px;
+}
+
+.confusion-matrix th {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 6px;
+    text-align: center;
+}
+
+.confusion-matrix td {
+    text-align: center;
+    padding: 14px 8px;
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 500;
+    transition: transform 0.2s;
+    cursor: default;
+}
+
+.confusion-matrix td:hover {
+    transform: scale(1.08);
+}
+
+/* Celda diagonal (aciertos) vs fuera de diagonal (errores) */
+.cm-correct {
+    background: rgba(52, 211, 153, 0.2);
+    color: var(--setosa);
+}
+
+.cm-error-low {
+    background: rgba(251, 146, 60, 0.1);
+    color: var(--versicolor);
+}
+
+.cm-error-mid {
+    background: rgba(244, 114, 182, 0.15);
+    color: var(--virginica);
+}
+
+.cm-zero {
+    background: var(--surface);
+    color: var(--border);
+}
+
+/* Leyenda de la matriz */
+.cm-legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+.cm-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.cm-legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+/* =====================================================================
+       INFO BOX — Explicaciones del dataset
+    ====================================================================== */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.info-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.info-box .icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.info-box h4 {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+
+.info-box p {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* =====================================================================
+       FLORES DECORATIVAS — Cards de especie
+    ====================================================================== */
+.species-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.species-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.species-card .sp-emoji {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.species-card h4 {
+    font-family: var(--font-title);
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.species-card p {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.species-card.s0 {
+    border-top: 3px solid var(--setosa);
+}
+
+.species-card.s1 {
+    border-top: 3px solid var(--versicolor);
+}
+
+.species-card.s2 {
+    border-top: 3px solid var(--virginica);
+}
+
+/* =====================================================================
+       ESTADO DE CARGA Y ERRORES
+    ====================================================================== */
+.loading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 16px 0;
+}
+
+.spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.error-msg {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #f87171;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.success-msg {
+    background: rgba(52, 211, 153, 0.1);
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: var(--setosa);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+/* =====================================================================
+       FOOTER
+    ====================================================================== */
+footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-family: var(--font-mono);
+}
+
+footer span {
+    color: var(--accent);
+}
+
+/* =====================================================================
+       UTILIDADES
+    ====================================================================== */
+.flex {
+    display: flex;
+}
+
+.gap-12 {
+    gap: 12px;
+}
+
+.mt-16 {
+    margin-top: 16px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.divider {
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+}
+
+@media (max-width: 640px) {
+    .batch-result-row {
+        grid-template-columns: 30px 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
