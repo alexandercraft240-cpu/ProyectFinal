@@ -1917,10 +1917,10 @@
      * ----------------------------
      * Ya no necesitas configurar nada aquí.
      * La función getFlowerImage() prueba automáticamente estas rutas:
-     *   img/{clase}.jpg  → img/{clase}.jpeg  → img/{clase}.png  → img/{clase}.webp
+     *   static/img/{clase}.jpg  → static/img/{clase}.jpeg  → static/img/{clase}.png  → static/img/{clase}.webp
      *
-     * Para agregar una nueva especie: pon la imagen en /img/ con el nombre de la clase.
-     * Ejemplo: si el modelo devuelve "rosa" → pon img/rosa.jpg y funcionará solo.
+     * Para agregar una nueva especie: pon la imagen en /static/img/ con el nombre de la clase.
+     * Ejemplo: si el modelo devuelve "rosa" → pon static/img/rosa.jpg y funcionará solo.
      */
 
     // Emojis de fallback si ninguna imagen local se encuentra
@@ -1953,13 +1953,13 @@
        * poner la imagen en img/{nombre}.jpg — sin tocar este código.
        */
       const candidates = [
-        `img/${cls}.jpg`,
-        `img/${cls}.jpeg`,
-        `img/${cls}.png`,
-        `img/${cls}.webp`,
+        `static/img/${cls}.jpg`,
+        `static/img/${cls}.jpeg`,
+        `static/img/${cls}.png`,
+        `static/img/${cls}.webp`,
         /* también intentamos con mayúscula inicial por si el archivo se llama Setosa.jpg */
-        `img/${cls.charAt(0).toUpperCase() + cls.slice(1)}.jpg`,
-        `img/${cls.charAt(0).toUpperCase() + cls.slice(1)}.png`,
+        `static/img/${cls.charAt(0).toUpperCase() + cls.slice(1)}.jpg`,
+        `static/img/${cls.charAt(0).toUpperCase() + cls.slice(1)}.png`,
       ];
 
       /* Serializamos la lista para pasarla al onerror inline */
@@ -1986,7 +1986,7 @@
             this.dataset.idx = next;
             this.src = list[next];
           } else {
-            this.parentElement.innerHTML = '<div class=\\'flower-placeholder\\'><div class=\\'flower-emoji\\'>${emoji}</div><span style=\\'font-family:var(--font-mono);font-size:12px;color:var(--text-muted)\\'>Agrega la imagen en<br><b>img/${cls}.jpg</b></span></div>';
+            this.parentElement.innerHTML = '<div class=\\'flower-placeholder\\'><div class=\\'flower-emoji\\'>${emoji}</div><span style=\\'font-family:var(--font-mono);font-size:12px;color:var(--text-muted)\\'>Agrega la imagen en<br><b>static/img/${cls}.jpg</b></span></div>';
           }
         "
       >
